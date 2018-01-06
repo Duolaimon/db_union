@@ -1,0 +1,28 @@
+html,body,.contain{
+		height: 100%;
+	}
+    .header{
+        height: 161px;
+        background-color: rgb(255,253,253);
+        background-image: url(../image/header_bg.jpg);
+        background-repeat: no-repeat;
+        background-position:center top;
+        text-align: center;
+    }
+    .contain{
+    	height:auto; 
+	    min-height:100%; 
+	    _height:100%;
+	    position: relative;
+	    margin-top: -161px;
+    }
+    #main{
+    	padding-bottom: 122px;
+    	padding-top: 200px;
+    	width: 1000px;
+    }
+    .footer{
+    	position: relative;
+    	height: 101px;
+    	margin-top: -102px;
+    }

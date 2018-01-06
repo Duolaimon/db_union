@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Chenwei" />
+<meta name="robots" content="all" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="css/validation.css" rel="stylesheet" type="text/css"/>
+    <link href="css/style1.css" rel="stylesheet" type="text/css"/>
+    <script src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+    
+    <style>
+   #login2{
+        float: right;
+        } 
+    #username2,#username4,#username7,#username8{
+    display: none;
+    }
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+    <title>登陆</title>
+</head>
+<body>
+<form id="loginForm" name="loginForm" method="post" action="">
+<div class="wallpaper">
+  <div class="login-main">
+  	<div class="header"> <i class="tc-img"><img src="image/tc.png" width="73" height="93" /></i><i class="logo"><img src="image/logo.png" style="height:86px;" /></i> </div>
+    <div class="login-area">
+    	<div class="login-left"><img src="image/login-img.jpg" width="694" height="392" /></div>
+        <div class="login-right">
+
+
+        	<div class="form-area fw">
+                <select name="" id="select1" style="width: 172px;height: 26px;margin-left: 64px;margin-top: 20p;margin-bottom: 6px;">
+                    
+                <option value="0">代表登陆</option> 
+                <option value="4">代表团登陆</option> 
+                <option value="1">部门登陆</option> 
+                <option value="2">提案委登陆</option> 
+                <option value="3">领导登陆</option> 
+                </select>
+            	<!-- <button  id="login1" disabled="false"><h3>用户登录</h1></button><button id="login2"><h3>部门登陆</h1></button> -->
+                <div class="form">
+
+                  <p id="username3"><span>职工号：</span>
+                    <input type="text"  name="user" id="username"  class="ipt" /></p>
+                  <p id="username8"><span>团长号：</span>
+                    <input type="text"  name="user" id="username9"  class="ipt" /></p> 
+                      <p id="username2"><span>部门号：</span>
+                      <input type="text"  name="user" id="username1"  class="ipt" /></p>
+                      <p id="username4"><span>提案委：</span>
+                      <input type="text" name="user" id="username5" class="ipt"/></p>
+                      <p id="username7"><span>领导号：</span>
+                      <input type="text" name="user" id="username6" class="ipt"/></p>
+
+                    <p><span>密<span style="width:12px;"></span>码：</span>
+                      <input type="password" name="pwd" id="password"  class="ipt" /></p>
+
+                   
+                    <p class="mt10" style="margin-top:6px;"><span style="width:49px;"></span>&nbsp;
+                        &nbsp;
+                        <input type="button" name="btn" value="登陆"  tabindex="4" id="login"
+                               style="border-width:0;width:80px;height:29px;background: #18CBE6;
+			                   cursor:pointer;margin-left:-20px;"  />
+
+                        <input tabindex="5" type="reset"  value="重置"
+                               style="border-width:0;width:80px;height:29px;background:#767070;
+                               cursor:pointer; margin-left:4px;"  tabIndex="5"/>
+
+                    </p>
+                </div>
+
+                <div class="form-content" style="margin-top:7px;">
+                	<p>说明： </p>
+                    <p>1.用户名:(1)教工用户名为职工号，如工号有问题请咨询人事处。(2)部门用户名为部门号。(3)管理员用户名为公会统一发放。(4)领导用户名与领导管辖部门一致。</p>
+                    <p>2.密码:(1)由管理部门统一发放。</p>
+                    <p>3、服务电话：10010010</p>
+                    <p>注：如有问题请联系工会。</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="footer mt10">
+    	<span>Copyright <font class="copy">©</font> 2016 黑龙江大学   All rights reserved.</span>
+   
+			
+		</p>
+    </div>
+  </div>
+</div>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+  
+   window.onload=function(){
+      var oSelect=document.getElementById('select1');
+      var oUsername=document.getElementById('username');
+      var oPassword = document.getElementById('password');
+      var oLogin = document.getElementById('login');
+      var oUsername1=document.getElementById('username1');
+      var oUsername4=document.getElementById('username4');
+      var oUsername3 = document.getElementById('username3');
+      var oUsername2 = document.getElementById('username2');
+      var oUsername5=document.getElementById('username5');
+      var oUsername6 = document.getElementById('username6');
+      var oUsername7=document.getElementById('username7');
+      var oUsername8=document.getElementById('username8');
+      var oUsername9=document.getElementById('username9');
+      oSelect.onchange=function(){
+          if(oSelect.value=='1'){
+              oUsername4.style.display='none';
+               oUsername2.style.display= 'block';
+               oUsername3.style.display ='none';
+               oUsername7.style.display ='none';
+               oUsername8.style.display ='none';
+          }else if(oSelect.value=='2'){
+                oUsername4.style.display='block';
+               oUsername2.style.display= 'none';
+               oUsername3.style.display ='none';
+               oUsername7.style.display ='none';
+               oUsername8.style.display ='none';
+          }else if(oSelect.value=='3'){
+                oUsername7.style.display='block';
+               oUsername2.style.display= 'none';
+               oUsername3.style.display ='none';
+               oUsername4.style.display ='none';
+               oUsername8.style.display ='none';
+          }else if(oSelect.value=='4'){
+                oUsername7.style.display='none';
+               oUsername2.style.display= 'none';
+               oUsername3.style.display ='none';
+               oUsername4.style.display ='none';
+               oUsername8.style.display ='block';
+          }else{
+              oUsername4.style.display='none';
+               oUsername2.style.display= 'none';
+               oUsername7.style.display= 'none';
+               oUsername3.style.display ='block';
+               oUsername8.style.display ='none';
+          }
+      };
+     // <option value="0">代表登陆</option> 
+     //            <option value="4">代表团登陆</option> 
+     //            <option value="1">部门登陆</option> 
+     //            <option value="2">提案委登陆</option> 
+     //            <option value="3">领导登陆</option> 
+    oLogin.onclick=function(){
+      if(oSelect.value=='0'){
+        ajax('get','/db_union/committeeController/login.do','COMMITTEEID='+oUsername.value+'&PASSWORD='+oPassword.value,function(data){
+            var d = JSON.parse(data);
+            if(d.FLAG=='1'){
+                alert('登陆成功');
+           self.location="./index.html?COMMITTEEID="+oUsername.value;
+               
+            }else if(d.FLAG=='0'){
+                alert('用户不存在或已登陆');
+            }else{
+                alert('密码错误');
+            }
+
+        });
+      }
+      else if(oSelect.value=='1'){
+        ajax('get','/db_union/departmentController/login.do','DEPATMENTID='+oUsername1.value+'&PASSWORD='+oPassword.value,function(data){
+          var d = JSON.parse(data);
+          if(d.FLAG=='1'){
+              alert('部门登陆成功');
+              self.location="./index.html?DEPATMENTID="+oUsername1.value;
+          }else if(d.FLAG=='0'){
+              alert('用户不存在或已登陆');
+          }else{
+              alert('密码错误');
+          }
+        });
+      }
+      else if(oSelect.value=='3'){
+        ajax('get','/db_union/leader/login.do','id='+oUsername6.value+'&password='+oPassword.value,function(data){
+          var d = JSON.parse(data);
+          console.log(d)
+          if(d=='1'){
+              alert('领导登陆成功');
+              self.location="./lingdaoshen_more.html?DEPATMENTID="+oUsername6.value+"&page=1";
+          }else if(d=='0'){
+              alert('用户不存在或已登陆');
+          }else{
+              alert('密码错误');
+          }
+        });
+      }else if(oSelect.value=='2'){
+        ajax('get','/db_union/manageController/login.do','manageid='+oUsername5.value+'&password='+oPassword.value,function(data){
+          var d=JSON.parse(data);
+            if(d.info=='1'){
+              alert('提案委登陆成功');
+              self.location="./shen_advice_more.html?manageid="+oUsername5.value+"&page=1";
+            }
+            else if(d.info=='0'){
+              alert('用户不存在或已登陆');
+            }
+            else{
+              alert('密码错误');
+            }
+              
+        });
+      }else{
+        ajax("post",'/db_union/team/login.do','id='+oUsername9.value+'&password='+oPassword.value,function(data){
+            console.log(data)
+            if(data==1){
+              alert("代表团团长登陆成功！")
+              self.location='./tuanshen_advice_more.html?teamid='+oUsername9.value+'&page=1';
+            }else if(data==0){
+              alert("用户不存在！")
+            }else{
+              alert("登录失败！")
+            }
+        })
+      }
+    }   
+    document.onkeydown=function(){
+      if(event.keyCode==13){
+        oLogin.onclick();
+      }
+    }
+ }
+</script>

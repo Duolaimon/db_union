@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>撰写提案</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<style type="text/css">
+	html,body,.contain{
+		height: 100%;
+        color: #000;
+	}
+    .header{
+        height: 161px;
+        background-color: rgb(255,253,253);
+        background-image: url(image/header_bg.gif);
+        background-repeat: no-repeat;
+        background-position:center top;
+        text-align: center;
+    }
+    .contain{
+    	height:auto; 
+	    min-height:100%; 
+	    _height:100%;
+	    position: relative;
+	    margin-top: -161px;
+    }
+    #main{
+    	padding-bottom: 122px;
+    	padding-top: 181px;
+    	width: 1000px;
+    }
+    .footer{
+    	position: relative;
+    	height: 101px;
+    	margin-top: -102px;
+    }
+    #adviceForm label{
+        display: inline-block;
+        width: 100%;
+        font-size: 16px;
+        line-height: 26px;
+        margin-bottom: 10px;
+    }
+
+    input, textarea{
+        height: 26px;
+        font-size: 14px;
+        padding-left: 6px;
+        border: none;
+        outline: none;
+    }
+    .table{width: 1000px;border-right: solid 1px #ccc;}
+    .table caption{
+        border:solid 1px #ccc;
+        height: 50px;
+        line-height: 50px;
+        font-size: 18px;
+        color: #000;
+    }
+    .table td{
+        border-left:solid 1px #ccc;
+        border-bottom:solid 1px #ccc;
+        *width: 150px;
+        text-align: center;
+
+    }
+    .table td input, .table td textarea{
+        width: 98%;
+        height: 100%;
+        *border:1px solid #fff;
+    }
+    .table td textarea{
+        *width: 830px;
+        *overflow: hidden;
+    }
+    .table tr{
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+    }
+    ol{color: #aaa;}
+    ol li{float: left;}
+    #adviceBtn{
+        width: 100px;
+        height: 40px;
+        line-height: 40px;
+        border: solid 1px #ccc;
+        background: #3266cc;
+        margin: 10px 0 10px 900px;
+        color: #fff;
+        font-size: 16px; 
+    }
+    caption .title{
+        padding: 0;
+        width: 30px;
+        border-bottom: solid 1px #000;
+        text-align: center;
+        font-family: "Microsoft YaHei";
+        font-size: 18px;
+    }
+	</style>
+</head>
+<body>
+	<div class="header"></div>
+    <div class="navbar">
+        <ul class="navlist">
+            <li><a href="index.html" id="index">首页</a></li>
+            <li style="margin-right:0;background: red;"><a id="new">新建提案</a></li>
+            <li><a href="my_advice_more.html?page=1" id="myAdvice">我的提案</a></li>
+            <li><a href="process.html" id="process">提案进度</a></li>
+        </ul>
+    </div>
+	<div class="contain">
+		<div id="main">
+            <form id="adviceForm" method="post" action="#">
+                <table cellspacing="0" cellpadding="0" class="table">
+                    <caption>黑龙江大学第<input type="text" class="title"></input>届<input type="text" class="title"></input>次教代会提案工作表</caption>
+                    <tbody> 
+                        <label>提案编号：<input type="text" style="border-bottom:solid 1px #ccc;margin-bottom:10px;" /></label>
+                        <tr>
+                            <td>案名</td><td colspan="5"><input type="text"/></td>
+                        </tr>
+                        <tr>
+                            <td>提案人姓名</td><td><input type="text"/></td>
+                            <td>所在单位</td><td><input type="text"/></td>
+                            <td>联系方式</td><td><input type="text"/></td>
+                        </tr>
+                        <tr>
+                            <td>附议人姓名</td><td colspan="5" style="background:#ccc;">不由提案人填写<!-- <input type="text" /> --></td>
+                        </tr>
+                        <tr style="height:100px;">
+                            <td>提案内容</td><td colspan="5"><textarea style="height:96px;"></textarea></td>
+                        </tr>
+                        <tr style="height:100px;">
+                            <td>建议措施</td><td colspan="5"><textarea style="height:96px;"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>提案上报时间</td><td colspan="5"><input type="text"/></td>
+                        </tr> 
+                    </tbody>
+                </table>
+                <p>说明：</p>
+                <ol>
+                    <li>1.原则上要求提案人是代表；</li>
+                    <li>2.附议人不少于两名教职工；</li>
+                    <li>3.提案人只填写表格本页；</li>
+                    <li>4.此工作表双面打印。</li>
+                </ol>
+                <div style="clear:both;"></div>
+                <input type="button" value="提交提案" id="adviceBtn"/>
+            </form>
+		</div>
+	</div>
+    <div class="footer">
+        <div class="footer_con">
+            <img class="img" src="image/9D953F7497390E8724306BD9841_84EDB1FF_BB07C.png" height="69" width="69"> 
+            <p>     
+                版权所有:黑龙江大学 黑ICP备14005517号-5<br> 查号台:0451-86608114 传真：+86 0451-86661259<br>通信地址：中国·黑龙江省哈尔滨市南岗区学府路74号 邮编：150080</td> 
+            </p>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+    <script type="text/javascript">
+		var oAdviceForm=document.getElementById("adviceForm");
+		var oInput =oAdviceForm.getElementsByTagName("input");
+		var oTextarea =oAdviceForm.getElementsByTagName("textarea");
+
+		var d =window.location.search;
+		var c =d.substring(8);
+
+        document.getElementById("myAdvice").href="my_advice_more.html?id="+c+"&page=1";
+        document.getElementById("process").href="process.html?id="+c;
+        document.getElementById("index").href="index.html?COMMITTEEID="+c;
+		oInput[8].onclick=function(){
+            var title0=oInput[1].value;
+            console.log(title0)
+            var title1=oInput[2].value;
+			var adviceName=oInput[3].value;
+			var userName=oInput[4].value;
+			var department=oInput[5].value;
+			var tel=oInput[6].value;
+			var time=oInput[7].value;
+			var adviceContent=oTextarea[0].value;
+			var adviceAdvise=oTextarea[1].value;
+            var title='黑龙江大学第'+title0+'届'+title1+'次教代会提案工作表';
+			ajax("post","/db_union/adviceController/insertAdvice.do","adviceTitle="+title+"&title="+adviceName+"&adviceContent="+adviceContent+"&adviceDo="+adviceAdvise+"&adviceName="+userName+"&adviceWorkspace="+department+"&contactway="+tel+"&adviceState=0&count=0&userId="+c+"&adviceAgree=",function(data){
+				alert("提交成功！")
+                self.location="./myself.html?COMMITTEEID="+c;
+			});	
+		}
+    </script>
+</body>
+</html>

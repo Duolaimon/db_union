@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db_union.meeting.dao.MeetingMapper">
+  <resultMap id="BaseResultMap" type="db_union.meeting.model.Meeting">
+    <id column="meeting_id" jdbcType="INTEGER" property="meetingId" />
+    <result column="meeting_title" jdbcType="VARCHAR" property="meetingTitle" />
+    <result column="meeting_content" jdbcType="VARCHAR" property="meetingContent" />
+    <result column="meeting_time" jdbcType="TIMESTAMP" property="meetingTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    meeting_id, meeting_title, meeting_content, meeting_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_meeting
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT COUNT(*) from tb_meeting
+  </select>
+  <select id="findMeetingByPage" resultMap="BaseResultMap" parameterType="db_union.utils.Page" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_meeting
+    order by meeting_time desc
+    limit #{beginIndex,jdbcType=INTEGER},#{everyPage,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_meeting
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="db_union.meeting.model.Meeting">
+    insert into tb_meeting (meeting_id, meeting_title, meeting_content, 
+      meeting_time)
+    values (#{meetingId,jdbcType=INTEGER}, #{meetingTitle,jdbcType=VARCHAR}, #{meetingContent,jdbcType=VARCHAR}, 
+      #{meetingTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="db_union.meeting.model.Meeting">
+    insert into tb_meeting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="meetingId != null">
+        meeting_id,
+      </if>
+      <if test="meetingTitle != null">
+        meeting_title,
+      </if>
+      <if test="meetingContent != null">
+        meeting_content,
+      </if>
+      <if test="meetingTime != null">
+        meeting_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="meetingId != null">
+        #{meetingId,jdbcType=INTEGER},
+      </if>
+      <if test="meetingTitle != null">
+        #{meetingTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingContent != null">
+        #{meetingContent,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingTime != null">
+        #{meetingTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="db_union.meeting.model.Meeting">
+    update tb_meeting
+    <set>
+      <if test="meetingTitle != null">
+        meeting_title = #{meetingTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingContent != null">
+        meeting_content = #{meetingContent,jdbcType=VARCHAR},
+      </if>
+      <if test="meetingTime != null">
+        meeting_time = #{meetingTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="db_union.meeting.model.Meeting">
+    update tb_meeting
+    set meeting_title = #{meetingTitle,jdbcType=VARCHAR},
+      meeting_content = #{meetingContent,jdbcType=VARCHAR},
+      meeting_time = #{meetingTime,jdbcType=TIMESTAMP}
+    where meeting_id = #{meetingId,jdbcType=INTEGER}
+  </update>
+</mapper>

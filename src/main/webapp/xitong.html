@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>工会</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/list.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<style>
+	html,body,.contain{
+		height: 100%;
+	}
+    .con{
+    	height:auto; 
+	    min-height:100%; 
+	    _height:100%;
+	    position: relative;
+	    margin-top: -243px;
+    }
+    #main{
+    	padding-bottom: 122px;
+    	padding-top: 243px;
+    	width: 1000px;
+    	margin:0 auto;
+    }
+    .footer{
+    	position: relative;
+    	height: 101px;
+    	margin-top: -102px;
+    }
+    .tian{
+    	display: inline-block;
+    	width: 86px;
+    	height: 264px;
+   		margin-top: 16px;
+    	float: right;
+    }
+    .gongneng{
+    	height: 50px;
+	    margin-top: 10px;
+	    line-height: 50px;
+	    text-align: center;
+	    font-family: cursive;
+	    font-size: 32px;
+	    border-top: solid 1px #ccc;
+    }
+    .imageList li,.imageList img{
+    	width: 400px;
+    	height: 270px;
+    }
+    .banner .imagelist li{
+    	float: left;
+    }
+	</style>
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+	<!--[if IE 6]>
+	<script src="js/DD_belatedPNG_0.0.8a.js"></script>
+	<script>
+		DD_belatedPNG.fix('.img');
+	</script>
+	<![endif]-->
+</head>
+<body>
+	<!-- <div class="wrap"></div> -->
+	<div class="header">
+	</div>
+	<div class="navbar">
+		<ul class="navlist">
+			<li><a href="#">首页</a></li>
+			<li><a href="./news_more.html?page=1">通知公告</a></li>
+			<li><a href="./huiyiziliao_more.html?page=1">会议资料</a></li>
+			<li><a href="./xinwendongtai_more.html?page=1">新闻动态</a></li>
+			<li><a href="./guizhangzhidu_more.html?page=1">规章制度</a></li>
+			<li style="margin-right:0;"><a href="./zuzhijigou_more.html?page=1">组织机构</a></li>
+			<!-- <li style="margin-right:0;"><a href="./index.html">提案系统</a></li> -->
+		</ul>
+	</div>
+	<div class="con">
+	<div id="main">
+	
+	<div class="contain">
+		<div style="*height:272px;*padding-top:170px;">
+			<div class="banner" style="background:#fff;">
+				<ul class="imagelist">
+					<li class="active"><img src="image/1718050A32A305D8248DBD03C15_CDB50E72_32888.jpg" ></li>
+					<li><img src="image/7FBD8BA47434329A5400AA0E727_BF3C414A_28852.jpg"></li>
+					<li><img src="image/BF508C69D4D10E21F37F3C865D6_4403D17C_22041.jpg" ></li>
+					<li><img src="image/EB208C8F30D509AFFDF89E93756_D2AB09C0_1CC19.jpg" ></li>
+				</ul>
+				<ul class="pagelist">
+					<li class="active"></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+				<p class="btns">
+					<span class="prev">&lt;</span>
+					<span class="next">&gt;</span>
+				</p>
+			</div>
+			<div class="zhidu" id="zhidu">
+				<div class="title">
+					<h3>通知公告</h3>
+					<span><a href="./news_more.html?page=1" id="more">&gt;&gt;more</a></span>
+				</div>
+				<ul></ul>
+			</div>
+			<div class="tian">
+				<a href="./index.html">
+					<img src="image/btn.jpg" height="264" width="86">
+				</a>
+			</div>
+		</div>
+		<div class="news">
+			<div class="news1" id="news">
+				<div class="title">
+					<h3>规章制度</h3>
+					<span><a href="guizhangzhidu_more.html?page=1" id="more">&gt;&gt;more</a></span>
+				</div>
+				<ul></ul>
+			</div>
+			<div class="wait" id="wait">
+				<div class="title">
+					<h3>会议资料</h3>
+					<span><a href="./huiyiziliao_more.html?page=1">&gt;&gt;more</a></span>
+				</div>
+				<ul></ul>
+			</div>
+			<div class="advices" id="advices">
+				<div class="title">
+					<h3>新闻动态</h3>
+					<span><a href="./xinwendongtai_more.html?page=1">&gt;&gt;more</a></span>
+				</div>
+				<ul></ul>
+			</div>
+		</div>
+		<div class="des">
+			<h1 class="gongneng">具备提案系统一切功能</h1>
+			<img src="image/xitong_bg1.png" height="400" width="1000">
+		</div>
+	</div>
+	</div>
+	</div>
+	<div class="footer">
+		<div class="footer_con">
+			<img class="img" src="image/9D953F7497390E8724306BD9841_84EDB1FF_BB07C.png" height="69" width="69">	
+			<p>		
+				版权所有:黑龙江大学 黑ICP备14005517号-5<br> 查号台:0451-86608114 传真：+86 0451-86661259<br>通信地址：中国·黑龙江省哈尔滨市南岗区学府路74号 邮编：150080
+			</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		changeTab();
+		function changeTab(){
+			var i=0;
+			var length=$(".banner .imagelist li").length;
+			var timer=null;
+			clearInterval(timer);
+			timer=setInterval(function(){
+				moveRight();
+			},3000);
+			function moveRight(){
+				i++;
+				if(i==length){
+					i=0;
+				}
+				move(i);
+			}
+			function moveLeft(){
+				i--;
+				if(i==-1){
+					i=(length-1);
+				}
+				move(i);
+			}
+
+			$(".next").unbind().on("click",function(){
+				moveRight();
+			})
+			$(".prev").unbind().on("click",function(){
+				moveLeft();
+			})
+			$(".pagelist li").unbind().on("click",function(){
+				i=$(this).index();
+				move(i);
+			})
+
+			$(".banner").on("mouseover",function(){
+				clearInterval(timer);
+			})
+			$(".banner").on("mouseout",function(){
+				timer=setInterval(function(){
+					moveRight();
+				},3000);
+			})
+			function move(index){
+				$(".imagelist li:eq("+index+") img").fadeIn(500);
+				$(".imagelist li:eq("+index+") img").parent("li").siblings().find("img").fadeOut(500);
+				$(".pagelist li").eq(index).addClass("active").siblings().removeClass("active");
+			}
+		}
+
+	})
+	</script>
+	<script type="text/javascript">
+    ajax("get","/db_union/indexController/showIndex.do","",function(data){
+        var data=JSON.parse(data);
+        var oZhidu=document.getElementById("zhidu").getElementsByTagName("ul")[0];
+        for(var i=0;i<data.news.length;i++){
+        	var date = new Date(data.news[i].newsTime);
+        	oZhidu.innerHTML+="<li><span class=\"dots\">·</span><a href='./news.html?id="+data.news[i].newsId+"'>"+data.news[i].newsTitle+"</a><span class=\"date\">"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>";
+        };
+    });
+
+ 	ajax("get","/db_union/meeting/showMeetingByPage.do?count=1","",function(data){
+        var data=JSON.parse(data);
+        if(data.length>=9){
+            data.length=9;
+        };
+        var oWait=document.getElementById("wait").getElementsByTagName("ul")[0];
+        for(var i=0;i<data.length-1;i++){
+        	var date = new Date(data[i].meetingTime);
+        	oWait.innerHTML+="<li><span class=\"dots\">·</span><a href='./huiyiziliao.html?id="+data[i].meetingId+"'>"+data[i].meetingTitle+"</a><span class=\"date\">"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>";
+        };
+    });
+
+ 	ajax("get","/db_union/event/showEventByPage.do?count=1","",function(data){
+        var data=JSON.parse(data);
+        if(data.length>=9){
+            data.length=9
+		}
+        var oAdvices=document.getElementById("advices").getElementsByTagName("ul")[0];
+		for(var i=0;i<data.length-1;i++){
+        	var date = new Date(data[i].eventTime);
+        	oAdvices.innerHTML+="<li><span class=\"dots\">·</span><a href='./xinwendongtai.html?id="+data[i].eventId+"'>"+data[i].eventTitle+"</a><span class=\"date\">"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>"
+        }
+    })
+
+
+ 	ajax("get","/db_union/rule/showRuleByPage.do?count=1","",function(data){
+        var data=JSON.parse(data);
+        if(data.length>=9){
+            data.length=9
+		}
+        var oNews=document.getElementById("news").getElementsByTagName("ul")[0];
+		for(var i=0;i<data.length-1;i++){
+        	var date = new Date(data[i].ruleTime);
+        	oNews.innerHTML+="<li><span class=\"dots\">·</span><a href='./guizhangzhidu.html?id="+data[i].ruleId+"'>"+data[i].ruleName+"</a><span class=\"date\">"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>"
+        }
+    })
+
+    </script>
+</body>
+</html>

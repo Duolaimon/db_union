@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>会议资料</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link rel="stylesheet" type="text/css" href="css/list.css">
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+</head>
+<body>
+	<div class="header"></div>
+	<div class="navbar">
+		<ul class="navlist">
+			<li><a href="./xitong.html">首页</a></li>
+			<li><a href="./news_more.html?page=1">通知公告</a></li>
+			<li><a href="./huiyiziliao_more.html?page=1">会议资料</a></li>
+			<li><a href="./xinwendongtai_more.html?page=1">新闻动态</a></li>
+			<li><a href="./guizhangzhidu_more.html?page=1">规章制度</a></li>
+			<li style="margin-right:0;"><a href="./zuzhijigou_more.html?page=1">组织机构</a></li>
+			<!-- <li style="margin-right:0;"><a href="./index.html">提案系统</a></li> -->
+		</ul>
+	</div>
+	<div class="contain">
+		<div id="main">
+			<div class="position">当前位置：主页 >> 会议资料</div>
+			<div class="newsList">
+				<ul></ul>
+				<div class="page">
+					<p>共<span id="total">111</span>条&nbsp;&nbsp;&nbsp;&nbsp;<em id="nowPage">1</em>/<em id="totalPage">11</em>&nbsp;&nbsp;&nbsp;<span id="first" class="pages">首页</span><span id="prev" class="pages">上一页</span><span id="next" class="pages">下一页</span><span id="last" class="pages">尾页</span></p>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="footer">
+        <div class="footer_con">
+            <img class="img" src="image/9D953F7497390E8724306BD9841_84EDB1FF_BB07C.png" height="69" width="69"> 
+            <p>     
+                版权所有:黑龙江大学 黑ICP备14005517号-5<br> 查号台:0451-86608114 传真：+86 0451-86661259<br>通信地址：中国·黑龙江省哈尔滨市南岗区学府路74号 邮编：150080</td> 
+            </p>
+        </div>
+    </div>
+	<script>
+	var page=null;
+	var totalPage=null;
+	var count=window.location.search.substring("6");
+	ajax("get","/db_union/meeting/showMeetingByPage.do?count="+count,"",function(data){
+		var data=JSON.parse(data);
+		document.getElementById("total").innerHTML=data[data.length-1].totalCount;
+		document.getElementById("nowPage").innerHTML=data[data.length-1].currentPage;
+		document.getElementById("totalPage").innerHTML=data[data.length-1].totalPage;
+		page=data[data.length-1].currentPage;
+		totalPage=data[data.length-1].totalPage;
+		var oList=document.getElementById("main").getElementsByTagName("ul")[0];
+		for(var i=0;i<data.length-1;i++){
+			var date = new Date(data[i].meetingTime);
+			oList.innerHTML+="<li><span class=\"dots\">·</span><a href='./huiyiziliao.html?id="+data[i].meetingId+"'>"+data[i].meetingTitle+"</a><span>"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>";	
+		}
+	});
+
+	var oFirst=document.getElementById("first");
+	var oPrev=document.getElementById("prev");
+	var oLast=document.getElementById("last");
+	var oNext=document.getElementById("next");
+	
+	oLast.onclick=function(){
+		ajax("get","/db_union/meeting/showMeetingByPage.do?count="+parseInt(totalPage),"",function(data){
+			getData(data);
+			self.location="/db_union/huiyiziliao_more.html?page="+parseInt(totalPage);
+		});
+	}		
+	oNext.onclick=function(){
+		if(page<totalPage){
+			ajax("get","/db_union/meeting/showMeetingByPage.do?count="+(parseInt(page)+1),"",function(data){
+				getData(data);
+			self.location="/db_union/huiyiziliao_more.html?page="+parseInt(page);
+			});
+		}
+	}	
+	oFirst.onclick=function(){	
+		ajax("get","/db_union/meeting/showMeetingByPage.do?count=1","",function(data){
+			getData(data);
+			self.location="/db_union/huiyiziliao_more.html?page=1";
+		});
+	}
+	oPrev.onclick=function(){
+		ajax("get","/db_union/meeting/showMeetingByPage.do?count="+(parseInt(page)-1),"",function(data){
+			getData(data);
+			self.location="/db_union/huiyiziliao_more.html?page="+parseInt(page);
+		});
+	}
+	
+	function getData(data){
+		var data=JSON.parse(data);
+		document.getElementById("nowPage").innerHTML=data[data.length-1].currentPage;
+		page=data[data.length-1].currentPage;
+		var oList=document.getElementById("main").getElementsByTagName("ul")[0];
+		oList.innerHTML="";
+		for(var i=0;i<data.length-1;i++){
+			var date = new Date(data[i].meetingTime);
+			oList.innerHTML+="<li><span class=\"dots\">·</span><a href='./huiyiziliao.html?id="+data[i].meetingId+"'>"+data[i].meetingTitle+"</a><span>"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>";	
+		}
+	}
+	</script>
+</body>
+</html>

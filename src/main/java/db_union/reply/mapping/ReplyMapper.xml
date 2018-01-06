@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db_union.reply.dao.ReplyMapper">
+  <resultMap id="BaseResultMap" type="db_union.reply.model.Reply">
+    <id column="reply_id" jdbcType="INTEGER" property="replyId" />
+    <result column="reply_content" jdbcType="VARCHAR" property="replyContent" />
+    <result column="reply_time" jdbcType="TIMESTAMP" property="replyTime" />
+    <result column="reply_state" jdbcType="SMALLINT" property="replyState" />
+    <result column="department_id" jdbcType="VARCHAR" property="departmentId" />
+    <result column="advice_id" jdbcType="INTEGER" property="adviceId" />
+    <result column="reply_reason" jdbcType="VARCHAR" property="replyReason" />
+    <result column="leader_reply" jdbcType="VARCHAR" property="leaderReply" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    reply_id, reply_content, reply_time, reply_state, department_id, advice_id, reply_reason, 
+    leader_reply
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_reply
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByAdviceID" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_reply
+    where advice_id = #{advice_id,jdbcType=INTEGER}
+  </select>
+  <select id="findReplyPass" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_reply
+    where reply_state=1
+    order by reply_time desc
+    limit 0,8
+  </select>
+  <select id="findReplyPassByPage" resultMap="BaseResultMap" parameterType="db_union.utils.Page">
+    select
+    <include refid="Base_Column_List" />
+    from tb_reply
+    where reply_state=1
+    order by reply_time desc
+    limit #{beginIndex,jdbcType=INTEGER},#{everyPage,jdbcType=INTEGER}
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    select count(*) from tb_reply
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_reply
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="db_union.reply.model.Reply">
+    insert into tb_reply (reply_id, reply_content, reply_time, 
+      reply_state, department_id, advice_id, 
+      reply_reason, leader_reply)
+    values (#{replyId,jdbcType=INTEGER}, #{replyContent,jdbcType=VARCHAR}, #{replyTime,jdbcType=TIMESTAMP}, 
+      #{replyState,jdbcType=SMALLINT}, #{departmentId,jdbcType=VARCHAR}, #{adviceId,jdbcType=INTEGER}, 
+      #{replyReason,jdbcType=VARCHAR}, #{leaderReply,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="db_union.reply.model.Reply">
+    insert into tb_reply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="replyId != null">
+        reply_id,
+      </if>
+      <if test="replyContent != null">
+        reply_content,
+      </if>
+      <if test="replyTime != null">
+        reply_time,
+      </if>
+      <if test="replyState != null">
+        reply_state,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="adviceId != null">
+        advice_id,
+      </if>
+      <if test="replyReason != null">
+        reply_reason,
+      </if>
+      <if test="leaderReply != null">
+        leader_reply,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="replyId != null">
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="replyContent != null">
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null">
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyState != null">
+        #{replyState,jdbcType=SMALLINT},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceId != null">
+        #{adviceId,jdbcType=INTEGER},
+      </if>
+      <if test="replyReason != null">
+        #{replyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderReply != null">
+        #{leaderReply,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="db_union.reply.model.Reply">
+    update tb_reply
+    <set>
+      <if test="replyContent != null">
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null">
+        reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyState != null">
+        reply_state = #{replyState,jdbcType=SMALLINT},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceId != null">
+        advice_id = #{adviceId,jdbcType=INTEGER},
+      </if>
+      <if test="replyReason != null">
+        reply_reason = #{replyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderReply != null">
+        leader_reply = #{leaderReply,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="db_union.reply.model.Reply">
+    update tb_reply
+    set reply_content = #{replyContent,jdbcType=VARCHAR},
+      reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      reply_state = #{replyState,jdbcType=SMALLINT},
+      department_id = #{departmentId,jdbcType=VARCHAR},
+      advice_id = #{adviceId,jdbcType=INTEGER},
+      reply_reason = #{replyReason,jdbcType=VARCHAR},
+      leader_reply = #{leaderReply,jdbcType=VARCHAR}
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+</mapper>

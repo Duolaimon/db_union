@@ -1,0 +1,195 @@
+.wrap{
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	z-index: 100;
+	background: #666;
+	width: 1000px;
+	height: 100%;
+	opacity: 0.1;
+	filter:Alpha(opacity=10);
+}
+body{
+	font-family: "微软雅黑";
+}
+.header{
+	height: 160px;
+	background-color: rgb(255,253,253);
+	background-image: url(../image/header_bg.jpg);
+	background-repeat: no-repeat;
+	background-position:center top;
+	text-align: center;
+}
+.header .headerWrap{
+	width: 1000px;
+	height: 40px;
+	display: inline-block;
+	position: relative;
+}
+.headerWrap .login{
+	position: absolute;
+	left: 0;
+	top: 10px;
+}
+.headerWrap .search{
+	width: 300px;
+	height: 40px;
+	position: absolute;
+	right: 0;
+}
+.headerWrap .search .searchText{
+	width: 200px;
+	height: 22px;
+	padding: 2px;
+	position: absolute;
+	right: 50px;
+	top: 4px;
+	line-height: 24px;
+	outline: none;
+}
+.headerWrap .search .searchBtn{
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: solid 1px #3266cc;
+	background: #3266cc;
+	position: absolute;
+	right: 0;
+	top: 4px;
+	outline: none;
+	cursor: pointer;
+}
+.navbar{
+	width: 100%;
+	min-width: 1000px;
+	height: 43px;
+	background: #3266cc;
+}
+.navlist{
+	width: 1000px;
+	height: 100%;
+	margin: 0 auto;
+}
+.navlist li{
+	float: left;
+	width: 146px;
+	margin-right: 24px;
+	line-height: 43px;
+	text-align: center;
+}
+.navlist li a{
+	display: inline-block;
+	width: 100%;
+	font-size: 18px;
+	color: #fff;
+}
+.navlist li a:hover{
+	background: #12346F;
+	color: #fff;
+}
+.contain{
+	width: 1000px;
+	height: 380px;
+	margin: 0 auto;
+}
+.news{
+	width: 100%;
+	height: 300px;
+}
+.news .news1,.news .wait,.news .advices{
+	display: inline-block;
+	width: 32%;
+	height: 285px;
+	float: right;
+	padding-top: 15px;
+	margin-right: 2%;
+}
+.news .news1{
+	margin-right: 0;
+	width: 100%;
+}
+.news .news1 .title,.news .advices .title,.topic .title,.wait .title{
+	width: 100%;
+	height: 36px;
+	line-height: 36px;
+	border-bottom: solid 1px #ccc;
+}
+.news .news1 .title h3,.news .advices .title h3,.topic .title h3,.news .wait .title h3{
+	font-size: 18px;
+	font-weight: normal;
+	display: inline-block;
+	width: 30%;
+	float: left;
+}
+.news .news1 .title span,.news .advices .title span,.news .wait .title span{
+	display: inline-block;
+	float: right;
+	cursor: pointer;
+}
+.news .news1 li,.news .advices li,.news .wait li{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	vertical-align: bottom;
+}
+.news .news1 li a,.news .advices li a,.news .wait li a{
+	display: inline-block;
+	width: 76%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	float: left;
+}
+.news .news1 li span.dots,.news .advices li span.dots,.news .wait li span.dots{
+	margin: 0 5px;
+	float: left;
+}
+.news .news1 li span.date,.news .advices li span.date,.news .wait li span.date{
+	float: right;
+	display: inline-block;
+	font-size: 12px;
+}
+.topic{
+	width: 100%;
+	height: 120px;
+}
+.topic .topiclist{
+	height: 80px;
+	width: 100%;
+}
+.topic .topiclist li{
+	float: left;
+	margin-right: 14px;
+	margin-top: 10px;
+}
+	
+.footer{
+	width: 100%;
+	height: 100px;
+	background-color: #707070;
+	border-top: solid 1px #515151;
+    color: #f0f0f0;
+    min-width: 1000px;
+    *margin-top: 14px;
+    _margin-top: 0;
+}
+.footer .footer_con{
+	width: 1000px;
+	margin: 0 auto;
+}
+.footer_con img{
+	display: inline-block;
+	float: left;
+	margin-top: 15px;
+	margin-right: 12px;
+}
+.footer_con p{
+	display: inline-block;
+	float: left;
+	margin-top: 25px;
+}

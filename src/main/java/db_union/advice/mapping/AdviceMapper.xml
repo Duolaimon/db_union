@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db_union.advice.dao.AdviceMapper">
+  <resultMap id="BaseResultMap" type="db_union.advice.model.Advice">
+    <id column="advice_id" jdbcType="INTEGER" property="adviceId" />
+    <result column="advice_num" jdbcType="VARCHAR" property="adviceNum" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="advice_content" jdbcType="VARCHAR" property="adviceContent" />
+    <result column="advice_do" jdbcType="VARCHAR" property="adviceDo" />
+    <result column="advice_state" jdbcType="INTEGER" property="adviceState" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="advice_agree" jdbcType="VARCHAR" property="adviceAgree" />
+    <result column="advice_name" jdbcType="VARCHAR" property="adviceName" />
+    <result column="advice_workspace" jdbcType="VARCHAR" property="adviceWorkspace" />
+    <result column="advice_time" jdbcType="TIMESTAMP" property="adviceTime" />
+    <result column="contactway" jdbcType="VARCHAR" property="contactway" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="department_id" jdbcType="VARCHAR" property="departmentId" />
+    <result column="advice_title" jdbcType="VARCHAR" property="adviceTitle" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    advice_id, advice_num, title, advice_content, advice_do, advice_state, count, advice_agree, 
+    advice_name, advice_workspace, advice_time, contactway, user_id, department_id, advice_title
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_advice
+    where advice_id = #{adviceId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="db_union.utils.Page">
+    select
+    <include refid="Base_Column_List" />
+    from tb_advice
+    limit #{beginIndex,jdbcType=INTEGER},#{everyPage,jdbcType=INTEGER}
+  </select>
+  <select id="selectPoiAdviceByPage" resultMap="BaseResultMap" parameterType="db_union.utils.Page">
+    select
+    <include refid="Base_Column_List" />
+    from tb_advice
+    where (advice_state = 0 OR advice_state = -1 OR advice_state = 1 OR advice_state = 3 OR advice_state = 4)
+    order by advice_time desc
+    limit #{beginIndex,jdbcType=INTEGER},#{everyPage,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserID" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from tb_advice
+    where user_id =  #{userId,jdbcType=VARCHAR}
+    order by advice_time desc
+  </select>
+  <select id="countAllAdvice" resultType="java.lang.Integer">
+    select count(*) from tb_advice
+  </select>
+  <select id="countAllCountB2" resultType="java.lang.Integer">
+    select count(*) from tb_advice where count>2 and advice_state=-1
+  </select>
+  <select id="countAllPoiAdvice" resultType="java.lang.Integer">
+    select count(*) from tb_advice where (advice_state = 0 OR advice_state = -1 OR advice_state = 1 OR advice_state = 3 OR advice_state = 4)
+  </select>
+  <select id="countAllPassAdvice" resultType="java.lang.Integer">
+    select count(*) from tb_advice where advice_state = 2
+  </select>
+  <select id="countAllPassAdviceLike" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from tb_advice where title like CONCAT(CONCAT('%', #{poi}),'%')
+  </select>
+  <select id="countAllAdviceByDEPARTMENTID" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from tb_advice where department_id = #{0} AND (advice_state = 4 OR advice_state = 3)
+  </select>
+  <select id="countAllAdviceByCOMMITTEEID" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from tb_advice where user_id = #{0}
+  </select>
+  <select id="countAllState" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(*) from tb_advice where advice_state = #{0}
+  </select>
+  <select id="countState6ByDmid" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from tb_advice where advice_state = 6 and department_id = #{0}
+  </select>
+  <select id="selectAdviceLike" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    select * from tb_advice where title like CONCAT(CONCAT('%', #{poi}),'%')
+    limit #{begin},#{every}
+  </select>
+  <select id="selectCountByPrimaryJey" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count from tb_advice
+    where advice_id = #{adviceId,jdbcType=INTEGER}
+  </select>
+  <select id="selectCountB2" resultMap="BaseResultMap" parameterType="db_union.utils.Page">
+    select * from tb_advice	where count>2 and advice_state=-1
+    limit #{beginIndex},#{everyPage}
+  </select>
+  <select id="findAdviceIndex" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_advice where advice_state=0
+    order by advice_time desc limit 0,8
+  </select>
+  <select id="findAdvicePass" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_advice
+    where advice_state=2
+    order by advice_time desc limit 0,8
+  </select>
+  <select id="selectAllPassAdvice" resultMap="BaseResultMap" parameterType="db_union.utils.Page">
+    select * from tb_advice
+    where advice_state=2
+    limit #{beginIndex},#{everyPage}
+  </select>
+  <select id="selectAdviceN0N2" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from tb_advice where advice_state&lt;&gt;0 and advice_state&lt;&gt;2 and advice_id=#{advice_id}
+  </select>
+  <select id="select6ByDmid" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    select * from
+    tb_advice
+    where advice_state= 6 and department_id = #{id}
+    limit #{begin},#{every}
+  </select>
+  <select id="selectAllState" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    select * from tb_advice
+    where advice_state = #{id}
+    limit #{begin},#{every}
+  </select>
+  <select id="findAdviceByCommitteeID" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_advice
+    where user_id = #{id} order by advice_time desc
+    limit #{begin},#{every}
+  </select>
+  <select id="findAdviceByDepartmentID" resultMap="BaseResultMap" parameterType="java.util.HashMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_advice
+    where department_id = #{id} AND (advice_state = 4 OR advice_state = 3)
+    limit #{begin},#{every}
+  </select>
+  <select id="findCountByMonth" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select count(*) from tb_advice where advice_time between date_add(date_add(last_day(#{0}),interval 1 day),interval -1 month) and la st_day(#{0});
+  </select>
+  <select id="findAdviceByStateF1" resultMap="BaseResultMap" parameterType="db_union.utils.Page">
+    select* from tb_advice where advice_state=-1
+    limit #{beginIndex},#{everyPage}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_advice
+    where advice_id = #{adviceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="db_union.advice.model.Advice">
+    insert into tb_advice (advice_id, advice_num, title, 
+      advice_content, advice_do, advice_state, 
+      count, advice_agree, advice_name, 
+      advice_workspace, advice_time, contactway, 
+      user_id, department_id, advice_title
+      )
+    values (#{adviceId,jdbcType=INTEGER}, #{adviceNum,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{adviceContent,jdbcType=VARCHAR}, #{adviceDo,jdbcType=VARCHAR}, #{adviceState,jdbcType=INTEGER}, 
+      #{count,jdbcType=INTEGER}, #{adviceAgree,jdbcType=VARCHAR}, #{adviceName,jdbcType=VARCHAR}, 
+      #{adviceWorkspace,jdbcType=VARCHAR}, #{adviceTime,jdbcType=TIMESTAMP}, #{contactway,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=VARCHAR}, #{departmentId,jdbcType=VARCHAR}, #{adviceTitle,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="db_union.advice.model.Advice">
+    insert into tb_advice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adviceId != null">
+        advice_id,
+      </if>
+      <if test="adviceNum != null">
+        advice_num,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="adviceContent != null">
+        advice_content,
+      </if>
+      <if test="adviceDo != null">
+        advice_do,
+      </if>
+      <if test="adviceState != null">
+        advice_state,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="adviceAgree != null">
+        advice_agree,
+      </if>
+      <if test="adviceName != null">
+        advice_name,
+      </if>
+      <if test="adviceWorkspace != null">
+        advice_workspace,
+      </if>
+      <if test="adviceTime != null">
+        advice_time,
+      </if>
+      <if test="contactway != null">
+        contactway,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="adviceTitle != null">
+        advice_title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adviceId != null">
+        #{adviceId,jdbcType=INTEGER},
+      </if>
+      <if test="adviceNum != null">
+        #{adviceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceContent != null">
+        #{adviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceDo != null">
+        #{adviceDo,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceState != null">
+        #{adviceState,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="adviceAgree != null">
+        #{adviceAgree,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceName != null">
+        #{adviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceWorkspace != null">
+        #{adviceWorkspace,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceTime != null">
+        #{adviceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contactway != null">
+        #{contactway,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceTitle != null">
+        #{adviceTitle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="db_union.advice.model.Advice">
+    update tb_advice
+    <set>
+      <if test="adviceNum != null">
+        advice_num = #{adviceNum,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceContent != null">
+        advice_content = #{adviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceDo != null">
+        advice_do = #{adviceDo,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceState != null">
+        advice_state = #{adviceState,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="adviceAgree != null">
+        advice_agree = #{adviceAgree,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceName != null">
+        advice_name = #{adviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceWorkspace != null">
+        advice_workspace = #{adviceWorkspace,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceTime != null">
+        advice_time = #{adviceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contactway != null">
+        contactway = #{contactway,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="adviceTitle != null">
+        advice_title = #{adviceTitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where advice_id = #{adviceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="db_union.advice.model.Advice">
+    update tb_advice
+    set advice_num = #{adviceNum,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      advice_content = #{adviceContent,jdbcType=VARCHAR},
+      advice_do = #{adviceDo,jdbcType=VARCHAR},
+      advice_state = #{adviceState,jdbcType=INTEGER},
+      count = #{count,jdbcType=INTEGER},
+      advice_agree = #{adviceAgree,jdbcType=VARCHAR},
+      advice_name = #{adviceName,jdbcType=VARCHAR},
+      advice_workspace = #{adviceWorkspace,jdbcType=VARCHAR},
+      advice_time = #{adviceTime,jdbcType=TIMESTAMP},
+      contactway = #{contactway,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=VARCHAR},
+      advice_title = #{adviceTitle,jdbcType=VARCHAR}
+    where advice_id = #{adviceId,jdbcType=INTEGER}
+  </update>
+</mapper>

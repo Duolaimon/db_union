@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db_union.team.dao.TeamMapper">
+  <resultMap id="BaseResultMap" type="db_union.team.model.Team">
+    <id column="team_id" jdbcType="INTEGER" property="teamId" />
+    <result column="team_pass" jdbcType="VARCHAR" property="teamPass" />
+    <result column="team_name" jdbcType="VARCHAR" property="teamName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    team_id, team_pass, team_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_team
+    where team_id = #{teamId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_team
+    where team_id = #{teamId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="db_union.team.model.Team">
+    insert into tb_team (team_id, team_pass, team_name
+      )
+    values (#{teamId,jdbcType=INTEGER}, #{teamPass,jdbcType=VARCHAR}, #{teamName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="db_union.team.model.Team">
+    insert into tb_team
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="teamId != null">
+        team_id,
+      </if>
+      <if test="teamPass != null">
+        team_pass,
+      </if>
+      <if test="teamName != null">
+        team_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="teamId != null">
+        #{teamId,jdbcType=INTEGER},
+      </if>
+      <if test="teamPass != null">
+        #{teamPass,jdbcType=VARCHAR},
+      </if>
+      <if test="teamName != null">
+        #{teamName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="db_union.team.model.Team">
+    update tb_team
+    <set>
+      <if test="teamPass != null">
+        team_pass = #{teamPass,jdbcType=VARCHAR},
+      </if>
+      <if test="teamName != null">
+        team_name = #{teamName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where team_id = #{teamId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="db_union.team.model.Team">
+    update tb_team
+    set team_pass = #{teamPass,jdbcType=VARCHAR},
+      team_name = #{teamName,jdbcType=VARCHAR}
+    where team_id = #{teamId,jdbcType=INTEGER}
+  </update>
+</mapper>

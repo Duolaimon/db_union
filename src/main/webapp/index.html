@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>提案系统</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/list.css">
+	<style>
+	html,body,.contain{
+		height: 100%;
+	}
+	li{
+		list-style: none;
+	}
+	#wait{
+		overflow: hidden;
+	}
+    .con{
+    	height:auto; 
+	    min-height:100%; 
+	    _height:100%;
+	    position: relative;
+	    margin-top: -243px;
+    }
+    #main{
+    	padding-bottom: 122px;
+    	padding-top: 243px;
+    	width: 1000px;
+    	margin:0 auto;
+    }
+    .xuzhilist li{
+    	width: 100%;
+    	height: 100px;
+    	margin-top: 10px;
+    }
+    .xuzhilist li img{
+    	display: inline-block;
+    	float: left;
+    }
+    .xuzhilist li h1{
+    	display: inline-block;
+	    width: 806px;
+	    margin-left: 20px;
+	    height: 40px;
+	    line-height: 40px;
+	    float: left;overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
+    }
+    .xuzhilist li p{
+    	display: inline-block;
+	    width: 810px;
+	    margin-left: 20px;
+	    font-size: 14px;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	    -o-text-overflow: ellipsis;
+    }
+    .footer{
+    	position: relative;
+    	height: 101px;
+    	margin-top: -102px;
+    }
+    .imageList li,.imageList img{
+    	width: 400px;
+    	height: 270px;
+    }
+    .banner .imagelist li{
+    	float: left;
+    }
+	</style>
+	<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+	<!--[if IE 6]>
+	<script src="js/DD_belatedPNG_0.0.8a.js"></script>
+	<script>
+		DD_belatedPNG.fix('.img');
+	</script>
+	<![endif]-->
+</head>
+<body>
+	<!-- <div class="wrap"></div> -->
+	<div class="header">
+		<div class="headerWrap">
+			<span id="login" style="position:absolute;z-index:9;left:0;height:40px;width:200px;display:inline-block;"><a class="login" href="./login.html">登录</a></span>
+			<p class="search" style="z-index:9;">
+				<input type="text" placeholder="搜索" class="searchText" id="searchText">
+				<input type="button" value="搜索" class="searchBtn" id="searchBtn">
+			</p>
+		</div>
+	</div>
+	<div class="navbar">
+		<ul class="navlist">
+			<li><a href="#" id="index">首页</a></li>
+			<li><a href="./goodAdvice_more.html?page=1" id="good">提案列表</a></li>
+			<li><a href="./advice_more.html?page=1" id="fuyi">待附议提案</a></li>
+			<li><a href="./liucheng.html" id="liucheng">提案流程</a></li>
+			<li><a href="./tianxuzhi_more.html?page=1" id="xuzhi">提案须知</a></li>
+			<li style="margin-right:0;"><a href="./statistics.html" id="static">提案统计</a></li>
+		</ul>
+	</div>
+	<div class="con">
+	<div id="main">
+	
+	<div class="contain">
+		<div>
+			<div class="banner">
+				<ul class="imagelist">
+					<li class="active">
+						<img src="image/1718050A32A305D8248DBD03C15_CDB50E72_32888.jpg" height="400" width="1000">
+					</li>
+					<li>
+						<img src="image/7FBD8BA47434329A5400AA0E727_BF3C414A_28852.jpg" height="400" width="1000">
+					</li>
+					<li>
+						<img src="image/BF508C69D4D10E21F37F3C865D6_4403D17C_22041.jpg" height="400" width="1000">
+					</li>
+					<li>
+						<img src="image/EB208C8F30D509AFFDF89E93756_D2AB09C0_1CC19.jpg" height="400" width="1000">
+					</li>
+				</ul>
+				<ul class="pagelist">
+					<li class="active"></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ul>
+				<p class="btns">
+					<span class="prev">&lt;</span>
+					<span class="next">&gt;</span>
+				</p>
+			</div>
+		
+			<div class="advices" id="advices" style="display:inline-block;float:right;width:550px;margin-left:20px;">
+				<div class="title">
+					<h3>提案列表</h3>
+					<span><a id="good2" href="./goodAdvice_more.html?page=1">&gt;&gt;more</a></span>
+				</div>
+				<ul></ul>
+			</div>
+		</div>
+		<div class="news" style="height:600px;*height:300px;">
+			<div class="wait" id="wait" style="width:600px;float:left;">
+				<div class="title">
+					<h3>等待附议</h3>
+					<span><a id="fuyi2" href="./advice_more.html?page=1">&gt;&gt;more</a></span>
+				</div>
+				<ul></ul>
+			</div>
+			<div class="wait" style="width:360px;float:left;">
+				<div class="title">
+					<h3>提案流程</h3>
+					<span><a href="#">&gt;&gt;more</a></span>
+				</div>
+				<div style="padding:4px 0;">
+					<a href=".liucheng.html" id="liucheng2"><img src="image/liuchengtu.png" height="240" width="360"></a>
+				</div>
+			</div>
+		</div>
+		<div class="xuzhi">
+			<div class="wait" id="xuzhi1" style="width:98%;float:none;">
+				<div class="title">
+					<h3>提案须知</h3>
+					<span><a id="xuzhi2" href="./tianxuzhi_more.html?page=1">&gt;&gt;more</a></span>
+				</div>
+				<ul class="xuzhilist"></ul>
+			</div>
+		</div>
+	</div>
+	</div>
+	</div>
+	<div class="footer">
+		<div class="footer_con">
+			<img class="img" src="image/9D953F7497390E8724306BD9841_84EDB1FF_BB07C.png" height="69" width="69">	
+			<p>		
+				版权所有:黑龙江大学 黑ICP备14005517号-5<br> 查号台:0451-86608114 传真：+86 0451-86661259<br>通信地址：中国·黑龙江省哈尔滨市南岗区学府路74号 邮编：150080
+			</p>
+		</div>
+	</div>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		changeTab();
+		function changeTab(){
+			var i=0;
+			var length=$(".banner .imagelist li").length;
+			var timer=null;
+			clearInterval(timer);
+			timer=setInterval(function(){
+				moveRight();
+			},3000);
+			function moveRight(){
+				i++;
+				if(i==length){
+					i=0;
+				}
+				move(i);
+			}
+			function moveLeft(){
+				i--;
+				if(i==-1){
+					i=(length-1);
+				}
+				move(i);
+			}
+
+			$(".next").unbind().on("click",function(){
+				moveRight();
+			})
+			$(".prev").unbind().on("click",function(){
+				moveLeft();
+			})
+			$(".pagelist li").unbind().on("click",function(){
+				i=$(this).index();
+				move(i);
+			})
+
+			$(".banner").on("mouseover",function(){
+				clearInterval(timer);
+			})
+			$(".banner").on("mouseout",function(){
+				timer=setInterval(function(){
+					moveRight();
+				},3000);
+			})
+			function move(index){
+				$(".imagelist li:eq("+index+") img").fadeIn(500);
+				$(".imagelist li:eq("+index+") img").parent("li").siblings().find("img").fadeOut(500);
+				$(".pagelist li").eq(index).addClass("active").siblings().removeClass("active");
+			}
+		}
+
+	})
+	</script>
+	<script type="text/javascript">
+
+	var id="";
+	if(window.location.search!=""){
+		id=window.location.search.substring(13);
+	}else{
+		id="";
+	};
+
+	document.getElementById("good").href="goodAdvice_more.html?id="+id+"&page=1";
+	document.getElementById("good2").href="goodAdvice_more.html?id="+id+"&page=1";
+	document.getElementById("fuyi").href="advice_more.html?id="+id+"&page=1";
+	document.getElementById("fuyi2").href="advice_more.html?id="+id+"&page=1";
+	document.getElementById("xuzhi").href="tianxuzhi_more.html?id="+id+"&page=1";
+	document.getElementById("xuzhi2").href="tianxuzhi_more.html?id="+id+"&page=1";
+	document.getElementById("static").href="statistics.html?id="+id;
+	document.getElementById("liucheng").href="liucheng.html?id="+id;
+	document.getElementById("liucheng2").href="liucheng.html?id="+id;
+	if(window.location.search.split("&")[0].substring(1)==='COMMITTEEID'){
+		document.getElementById("index").href="index.html?COMMITTEEID="+id;
+	}else{
+		document.getElementById("index").href="index.html?DEPATMENTID="+id;
+	}
+	
+
+    ajax("get","/db_union/indexController/showIndex.do","",function(data){
+        var data=JSON.parse(data);
+        console.log(data)
+        var oAdvices=document.getElementById("advices").getElementsByTagName("ul")[0];
+		for(var i=0;i<data.advicepass.length;i++){
+        	var date = new Date(data.advicepass[i].adviceTime);
+        	oAdvices.innerHTML+="<li><span class=\"dots\">·</span><a href='./goodAdvice.html?id="+data.advicepass[i].adviceId+"&userId="+id+"'>"+data.advicepass[i].title+"</a><span class=\"date\">"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>"
+        }
+        /*var oWait=document.getElementById("wait").getElementsByTagName("ul")[0];
+        for(var i=0;i<data.advice.length;i++){
+        	var date = new Date(data.advice[i].adviceTime);
+        	oWait.innerHTML+="<li><span class=\"dots\">·</span><a href='./advice.html?id="+data.advice[i].adviceId+"&userId="+id+"'>"+data.advice[i].title+"</a><span class=\"date\">"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>"
+        }*/
+    })
+
+	ajax("get","/db_union/adviceController/showPoiProcess.do?count=1","",function(data){
+		var data=JSON.parse(data);
+		console.log(data)
+		var oWait=document.getElementById("wait").getElementsByTagName("ul")[0];
+		var len=data.length>8?9:data.length
+		for(var i=0;i<len-1;i++){
+			var date = new Date(data[i].adviceTime);
+        	oWait.innerHTML+="<li><span class=\"dots\">·</span><a href='./advice.html?id="+data[i].adviceId+"&userId="+id+"'>"+data[i].title+"</a><span class=\"date\">"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>"	
+		}
+	});
+
+	ajax("get","/db_union/question/findQuestionByPage.do?count=1","",function(data){
+		var data=JSON.parse(data)
+		var oXuzhi=document.getElementById("xuzhi1").getElementsByTagName("ul")[0];
+		var len=data.length>3?4:data.length
+		for (var i = 0; i < len-1; i++) {
+			console.log(oXuzhi)
+			oXuzhi.innerHTML+="<li><a href=\"./tianxuzhi.html?id="+data[i].questionId+"&userId="+id+"\" ><img src=\"image/xitong_bg"+(i+1)+".jpg\" height=\"100\" width=\"150\"><h1>"+data[i].questionName+"</h1><div style='width:830px;height:57px;overflow:hidden;'>"+data[i].questionContent+"</div></a></li>";
+		};
+	})
+
+    var user=window.location.search.slice(1,12);
+    var userName=window.location.search.substring(13);
+    if(user=="COMMITTEEID"&&userName){
+    	document.getElementById("login").style.lineHeight="40px";
+    	document.getElementById("login").innerHTML=userName+"您好！ <a href='./myself.html?COMMITTEEID="+userName+"'> 个人中心 </a>";
+    }else if(user=="DEPATMENTID"&&userName){
+    	document.getElementById("login").innerHTML=userName+"您好！ <a href='./partmentCenter.html?DEPATMENTID="+userName+"'> 个人中心 </a>";
+    }
+    
+    var oSearText=document.getElementById("searchText");
+    var oSearch=document.getElementById("searchBtn");
+    var oMain=document.getElementById("main");
+    var page=null;
+	var totalPage=null;
+    oSearch.onclick=function(){
+    	ajax("get","/db_union/adviceController/selectAdviceLike.do?poi="+oSearText.value+"&count=1","",function(data){
+    		var data=JSON.parse(data);
+			
+    		var values=oSearText.value;
+    		oSearText.value="";
+    		oMain.innerHTML="<div class=\"position\" style=\"margin-top:20px;\">当前位置：主页 >> 提案列表搜索</div><div class=\"newsList\"><ul></ul>	<div class=\"page\"><p>共<span id=\"total\">111</span>条&nbsp;&nbsp;&nbsp;&nbsp;<em id=\"nowPage\">1</em>/<em id=\"totalPage\">11</em>&nbsp;&nbsp;&nbsp;<span id=\"first\" class=\"pages\">首页</span><span id=\"prev\" class=\"pages\">上一页</span><span id=\"next\" class=\"pages\">下一页</span><span id=\"last\" class=\"pages\">尾页</span></p></div></div>";
+    		for(var i=0;i<data.length;i++){
+    			if(data[i].adviceState==2){
+    				var date = new Date(data[i].adviceTime);
+    				console.log(data[i]);
+    				oMain.getElementsByTagName("ul")[0].innerHTML+="<li><span class=\"dots\">·</span><a href='./goodAdvice.html?id="+data[i].adviceId+"&userId="+id+"'>"+data[i].title+"</a><span>"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>";
+    			}
+    		}
+    		document.getElementById("total").innerHTML=data[data.length-1].totalCount;
+    		document.getElementById("nowPage").innerHTML=data[data.length-1].currentPage;
+    		document.getElementById("totalPage").innerHTML=data[data.length-1].totalPage;
+    		page=data[data.length-1].currentPage;
+    		totalPage=data[data.length-1].totalPage;
+    		var oFirst=document.getElementById("first");
+    		var oPrev=document.getElementById("prev");
+    		var oLast=document.getElementById("last");
+    		var oNext=document.getElementById("next");
+    		
+    		oLast.onclick=function(){
+    			console.log(values)
+    			ajax("get","/db_union/adviceController/selectAdviceLike.do?poi="+values+"&count="+parseInt(totalPage),"",function(data){		
+    				getData(data);
+    				console.log(data)
+    			});
+    		}		
+    		oNext.onclick=function(){
+    			if(page<totalPage){
+    				ajax("get","/db_union/adviceController/selectAdviceLike.do?poi="+values+"&count="+(parseInt(page)+1),"",function(data){		
+    					getData(data);
+    				});
+    			}
+    		}	
+    		oFirst.onclick=function(){	
+    			ajax("get","/db_union/adviceController/selectAdviceLike.do?poi="+values+"&count=1","",function(data){		
+    				getData(data);
+    			});
+    		}
+    		oPrev.onclick=function(){
+    			ajax("get","/db_union/adviceController/selectAdviceLike.do?poi="+values+"&count="+(parseInt(page)-1),"",function(data){			
+    				getData(data);
+    			});
+    		}
+    		
+    		function getData(data){
+    			var data=JSON.parse(data);
+    			document.getElementById("nowPage").innerHTML=data[data.length-1].currentPage;
+    			page=data[data.length-1].currentPage;
+    			var oList=document.getElementById("main").getElementsByTagName("ul")[0];
+    			oList.innerHTML="";
+    			for(var i=0;i<data.length-1;i++){
+    				var date = new Date(data[i].adviceTime);
+    				oList.innerHTML+="<li><span class=\"dots\">·</span><a href='./goodAdvice.html?id="+data[i].adviceId+"&userId="+id+"'>"+data[i].title+"</a><span>"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>";	
+    			}
+    		}
+    	})
+    }
+    
+    
+    </script>
+</body>
+</html>

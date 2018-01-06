@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- 配置自定义扫描包 -->
+    <context:component-scan base-package="db_union.news.controller"/>
+    <context:component-scan base-package="db_union.manage.controller"/>
+    <context:component-scan base-package="db_union.committee.controller"/>
+    <context:component-scan base-package="db_union.department.controller"/>
+    <context:component-scan base-package="db_union.advice.controller"/>
+    <context:component-scan base-package="db_union.reply.controller"/>
+    <context:component-scan base-package="db_union.leader.controller"/>
+    <context:component-scan base-package="db_union.meeting.controller"/>
+    <context:component-scan base-package="db_union.event.controller"/>
+    <context:component-scan base-package="db_union.question.controller"/>
+    <context:component-scan base-package="db_union.organization.controller"/>
+    <context:component-scan base-package="db_union.rule.controller"/>
+    <context:component-scan base-package="db_union.team.controller"/>
+
+
+    <mvc:default-servlet-handler />
+    <!-- 避免不能正常访问@RequestMapping链接，通常配置 mvc:annotation-driven 标签 -->
+    <mvc:annotation-driven />
+    <!-- 配置视图解析器：如何把 handler 方法返回值解析为实际的物理视图 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8" />
+        <property name="maxUploadSize" value="10485760000" />
+        <property name="maxInMemorySize" value="40960" />
+    </bean>
+</beans>

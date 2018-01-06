@@ -1,0 +1,56 @@
+#main .position{
+    	width:990;
+    	height:30px;
+    	line-height:30px;
+    	background:#eee;
+    	padding-left:10px;
+    }
+    #main .newsList{
+    	width:998px;
+    	height:340px;
+    	border:1px solid #ccc;
+    	border-top:solid 2px red;
+    	padding-top:14px;
+    }
+    #main .newsList ul{
+    	height:280px;
+    	margin-bottom:10px;
+    }
+    #main .newsList li{
+    	width:960px;
+    	height:28px;
+    	line-height:28px;
+    	margin:0 18px;
+    	border-bottom:dashed 1px #ccc;
+    }
+    #main .newsList li .dots{
+    	float:left;
+    	padding:0 5px;
+    }
+    #main .newsList li a{
+    	font-size:14px;
+        float: left;
+    	display:inline-block;
+    	width:840px;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
+    }
+    #main .newsList li span{
+    	float:right;
+    } 
+    #main .page{
+    	border-top:solid 1px #ccc;
+    	text-align:center;
+    	padding-top:10px;
+    }
+    #main .page .pages{
+    	display:inline-block;
+    	width:40px;
+    	height:26px;
+    	line-height:26px;
+    	text-align:center;
+    	border:solid 1px #ccc;
+    	background:#eee;
+    	margin-right:6px;
+    }

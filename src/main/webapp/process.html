@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>提案进度</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+	<style type="text/css">
+	#main {
+		padding-bottom:162px !important;
+	}
+    #main .proState{
+    	width:978px;
+    	height:auto;
+    	padding:10px;
+    	border:solid 1px #ddd;
+    	margin-bottom:10px;
+    }
+	</style>
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+</head>
+<body>
+	<div class="header"></div>
+    <div class="navbar">
+        <ul class="navlist">
+            <li><a href="index.html" id="index">首页</a></li>
+            <li style="margin-right:0;background: red;"><a id="new" href="./writeAdvice.html">新建提案</a></li>
+            <li><a href="my_advice_more.html?page=1" id="myAdvice">我的提案</a></li>
+            <li><a href="process.html" id="process">提案进度</a></li>
+        </ul>
+    </div>
+	<div class="contain">
+		<div id="main" style="position:relative;">
+		<!--  -->
+		</div>
+			
+		<div id="more" style="position:absolute;bottom:122px;border:solid 1px #ccc;text-align:center;width:100%;height:40px;line-height:40px;" >点击加载更多</div>
+		
+	</div>
+    <div class="footer">
+        <div class="footer_con">
+            <img class="img" src="image/9D953F7497390E8724306BD9841_84EDB1FF_BB07C.png" height="69" width="69"> 
+            <p>     
+                版权所有:黑龙江大学 黑ICP备14005517号-5<br> 查号台:0451-86608114 传真：+86 0451-86661259<br>通信地址：中国·黑龙江省哈尔滨市南岗区学府路74号 邮编：150080</td> 
+            </p>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+    var d =window.location.search.substring(4);
+
+    var oNew=document.getElementById("new").setAttribute("href","./writeAdvice.html?userId="+d);
+    document.getElementById("myAdvice").href="my_advice_more.html?id="+d+"&page=1";
+    document.getElementById("process").href="process.html?id="+d;
+    document.getElementById("index").href="index.html?COMMITTEEID="+d;
+  	 var str="";
+     function dataState(adviceState){
+    	 if(adviceState==0){
+       		 return str="提案待附议";
+       	 }else if(adviceState==1){
+       		 return str="部门已回复解决方案，待评价";
+       	 }else if(adviceState==2){
+       		 return str="部门解决结果满意，归档";
+       	 }else if(adviceState==3){
+       		 return str="部门解决结果不满意，请部门重新回复解决方案";
+       	 }else if(adviceState==4){
+       		 return str="提案委审核通过，待部门回复";
+         }else if(adviceState==5){
+             return str="审核不通过，不予立案";
+         }else if(adviceState==6){
+             return str="提案委审核,转为意见或建议";
+         }else if(adviceState==7){
+             return str="代表团审核通过，待提案委审核";
+         }else if(adviceState==-1){
+       		 return str="附议通过，待提案委审核";
+       	 }
+     }
+ 	 var m=1;
+     ajax("get","/db_union/processController/createProcess.do?USERID="+d,"",function(data){
+        //var oNew=document.getElementById("new").setAttribute("href","./writeAdvice.html?userId="+data[0].committeeName);
+    	var data=JSON.parse(data);
+        console.log(data)
+        var len=data.length>10?10:data.length
+    	var arr=[];
+    	var oMain=document.getElementById("main");
+        var oMore=document.getElementById("more");
+        if(data.length==0){
+            oMain.innerHTML="暂无提案。"
+            oMore.style.display="none"
+        }else{
+            oMore.style.display="block"
+            for(var i=0;i<len;i++){
+                if(data[i].adviceState==1){
+                    oMain.innerHTML+="<div class=\"proState\"><p>亲爱的<span>"+data[i].committeeName+"</span>您好:</p><p>您写的提案:"+data[i].title+"已经进行到<span style='color:red;'>"+dataState(data[i].adviceState)+"</span>,请您评价是否满意：<form method=\"get\" id=\"pingForm\">满意：<input type=\"radio\" checked=\"checked\" name=\"ping\" value=\"OK\" />不满意：<input type=\"radio\" name=\"ping\" value=\"NO\" /><input style=\"margin-left:50px;\" id=\"pingBtn\" type=\"button\" value=\"提交\"/></form></p></div>";
+                    arr.push(data[i]);
+                }else{
+                    oMain.innerHTML+="<div class=\"proState\"><p>亲爱的<span>"+data[i].committeeName+"</span>您好:</p><p>您写的提案:"+data[i].title+"已经进行到<span style='color:red;'>"+dataState(data[i].adviceState)+"</span>,请您耐心等待</p></div>";       
+                }
+            }
+        }
+    	var length=data.length;
+    	var page=Math.ceil(length/10);
+    	oMore.onclick=function(){
+        	if(m<page-1){
+                for(var i=0;i<10;i++){
+                	if(data[i].adviceState==1){
+                		oMain.innerHTML+="<div class=\"proState\"><p>亲爱的<span>"+data[i].committeeName+"</span>您好:</p><p>您写的提案:"+data[i].title+"已经进行到<span style='color:red;'>"+dataState(data[i].adviceState)+"</span>,请您评价是否满意：<form method=\"get\" id=\"pingForm\">满意：<input type=\"radio\" checked=\"checked\" name=\"ping\" value=\"OK\" />不满意：<input type=\"radio\" name=\"ping\" value=\"NO\" /><input style=\"margin-left:50px;\" id=\"pingBtn\" type=\"button\" value=\"提交\"/></form></p></div>";
+                		arr.push(data[i]);
+                	}else{
+                		oMain.innerHTML+="<div class=\"proState\"><p>亲爱的<span>"+data[i].committeeName+"</span>您好:</p><p>您写的提案:"+data[i].title+"已经进行到<span style='color:red;'>"+dataState(data[i].adviceState)+"</span>,请您耐心等待</p></div>";		
+                	}
+                	console.log(oMain.getElementsByTagName("div").length);
+                }
+        	}else if(m==(page-1)){ 
+        		for(var i=0;i<(length-(10*m));i++){
+                	if(data[i].adviceState==1){
+                		oMain.innerHTML+="<div class=\"proState\"><p>亲爱的<span>"+data[i].committeeName+"</span>您好:</p><p>您写的提案:"+data[i].title+"已经进行到<span style='color:red;'>"+dataState(data[i].adviceState)+"</span>,请您评价是否满意：<form method=\"get\" id=\"pingForm\">满意：<input type=\"radio\" checked=\"checked\" name=\"ping\" value=\"OK\" />不满意：<input type=\"radio\" name=\"ping\" value=\"NO\" /><input style=\"margin-left:50px;\" id=\"pingBtn\" type=\"button\" value=\"提交\"/></form></p></div>";
+                		arr.push(data[i]);
+                	}else{
+                		oMain.innerHTML+="<div class=\"proState\"><p>亲爱的<span>"+data[i].committeeName+"</span>您好:</p><p>您写的提案:"+data[i].title+"已经进行到<span style='color:red;'>"+dataState(data[i].adviceState)+"</span>,请您耐心等待</p></div>";		
+                	}
+                	console.log(oMain.getElementsByTagName("div").length);
+                }
+        		console.log("no");
+        		oMore.remove();
+        	}
+        	m++; 
+    	}
+        
+    	var a=0;
+        var aForm=document.getElementById("main").getElementsByTagName("form");
+        for(var j=0;j<arr.length;j++){
+        	(function(j){
+        		var aInput=aForm[j].getElementsByTagName("input");
+        		aInput[2].onclick=function(){
+        			if(aInput[0].checked){
+        				a=2;
+        			}else if(aInput[1].checked){
+        				a=3;
+        			}
+        			ajax("get","/db_union/adviceController/updataAdviceStates.do?adviceid="+arr[j].adviceId+"&stateid="+a,"",function(data){
+                        console.log(data)
+        				alert("回复成功！");
+        				location.reload();
+        			});
+        		};
+        	})(j)
+        }
+    })
+    </script>
+</body>
+</html>

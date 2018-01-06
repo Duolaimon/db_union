@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db_union.leader.dao.LeaderMapper">
+  <resultMap id="BaseResultMap" type="db_union.leader.model.Leader">
+    <id column="leader_id" jdbcType="INTEGER" property="leaderId" />
+    <result column="leader_password" jdbcType="VARCHAR" property="leaderPassword" />
+    <result column="leader_name" jdbcType="VARCHAR" property="leaderName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    leader_id, leader_password, leader_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_leader
+    where leader_id = #{leaderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_leader
+    where leader_id = #{leaderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="db_union.leader.model.Leader">
+    insert into tb_leader (leader_id, leader_password, leader_name
+      )
+    values (#{leaderId,jdbcType=INTEGER}, #{leaderPassword,jdbcType=VARCHAR}, #{leaderName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="db_union.leader.model.Leader">
+    insert into tb_leader
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="leaderId != null">
+        leader_id,
+      </if>
+      <if test="leaderPassword != null">
+        leader_password,
+      </if>
+      <if test="leaderName != null">
+        leader_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="leaderId != null">
+        #{leaderId,jdbcType=INTEGER},
+      </if>
+      <if test="leaderPassword != null">
+        #{leaderPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderName != null">
+        #{leaderName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="db_union.leader.model.Leader">
+    update tb_leader
+    <set>
+      <if test="leaderPassword != null">
+        leader_password = #{leaderPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderName != null">
+        leader_name = #{leaderName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where leader_id = #{leaderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="db_union.leader.model.Leader">
+    update tb_leader
+    set leader_password = #{leaderPassword,jdbcType=VARCHAR},
+      leader_name = #{leaderName,jdbcType=VARCHAR}
+    where leader_id = #{leaderId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db_union.organization.dao.OrganizationMapper">
+  <resultMap id="BaseResultMap" type="db_union.organization.model.Organization">
+    <id column="organization_id" jdbcType="INTEGER" property="organizationId" />
+    <result column="eorganization_name" jdbcType="VARCHAR" property="eorganizationName" />
+    <result column="organization_content" jdbcType="VARCHAR" property="organizationContent" />
+    <result column="organization_time" jdbcType="TIMESTAMP" property="organizationTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    organization_id, eorganization_name, organization_content, organization_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_organization
+    where organization_id = #{organizationId,jdbcType=INTEGER}
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT COUNT(*) from tb_organization
+  </select>
+  <select id="findOrganizationByPage" resultMap="BaseResultMap" parameterType="db_union.utils.Page" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_organization
+    order by organization_time desc
+    limit #{beginIndex,jdbcType=INTEGER},#{everyPage,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_organization
+    where organization_id = #{organizationId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="db_union.organization.model.Organization">
+    insert into tb_organization (organization_id, eorganization_name, 
+      organization_content, organization_time
+      )
+    values (#{organizationId,jdbcType=INTEGER}, #{eorganizationName,jdbcType=VARCHAR}, 
+      #{organizationContent,jdbcType=VARCHAR}, #{organizationTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="db_union.organization.model.Organization">
+    insert into tb_organization
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="organizationId != null">
+        organization_id,
+      </if>
+      <if test="eorganizationName != null">
+        eorganization_name,
+      </if>
+      <if test="organizationContent != null">
+        organization_content,
+      </if>
+      <if test="organizationTime != null">
+        organization_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="organizationId != null">
+        #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="eorganizationName != null">
+        #{eorganizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationContent != null">
+        #{organizationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationTime != null">
+        #{organizationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="db_union.organization.model.Organization">
+    update tb_organization
+    <set>
+      <if test="eorganizationName != null">
+        eorganization_name = #{eorganizationName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationContent != null">
+        organization_content = #{organizationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationTime != null">
+        organization_time = #{organizationTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where organization_id = #{organizationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="db_union.organization.model.Organization">
+    update tb_organization
+    set eorganization_name = #{eorganizationName,jdbcType=VARCHAR},
+      organization_content = #{organizationContent,jdbcType=VARCHAR},
+      organization_time = #{organizationTime,jdbcType=TIMESTAMP}
+    where organization_id = #{organizationId,jdbcType=INTEGER}
+  </update>
+</mapper>

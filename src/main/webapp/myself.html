@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>个人中心</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/myself.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+	<link rel="stylesheet" type="text/css" href="css/list.css">
+	
+	<style>
+	.navbar{
+		position: relative;
+		z-index: 9;
+	}
+	#main{
+		margin-top: -198px;
+		min-height: 310px;
+	}
+	</style>
+	 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+	 <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+</head>
+<body>
+	
+	<div class="header">
+	</div>
+	<div class="navbar">
+		<ul class="navlist">
+			<li><a href="index.html" id="index">首页</a></li>
+			<li style="margin-right:0;background: red;"><a id="new" href="#">新建提案</a></li>
+			<li><a href="my_advice_more.html?page=1" id="myAdvice">我的提案</a></li>
+			<li><a href="process.html" id="process">提案进度</a></li>
+		</ul>
+	</div>
+	<div class="contain " id="main">
+		<div class="news">
+			<div class="news1" id="news">
+				<div class="title">
+					<h3>我的提案</h3>
+					<span><a href="my_advice_more.html" id="my_advice_more">&gt;&gt;more</a></span>
+				</div>
+				<ul class="newsList" style="height:240px;">
+									
+				</ul>
+			</div>
+			
+			<!-- <div class="advices" id="advices">
+				<div class="title">
+					<h3>个人介绍</h3>
+
+					<span><a href="#">&gt;&gt;more</a></span>
+					<div id="img1"><img src="./image/chs.jpg" height="1429" width="1004" alt=""></div><strong>XXX老师</strong>
+					<div id="teacher">alkfnkanfkznvkzljlesjroiwe</div>
+				</div>
+				<ul></ul>
+			</div> -->
+		</div>
+		
+		</div>
+	</div>
+	<div class="footer">
+		<div class="footer_con">
+			<img class="img" src="image/9D953F7497390E8724306BD9841_84EDB1FF_BB07C.png" height="69" width="69">	
+			<p>		
+				版权所有:黑龙江大学 黑ICP备14005517号-5<br> 查号台:0451-86608114 传真：+86 0451-86661259<br>通信地址：中国·黑龙江省哈尔滨市南岗区学府路74号 邮编：150080
+			</p>
+		</div>
+	</div>
+</body>
+<script>
+
+window.onload=function(){
+	var d =window.location.search;
+	var c =d.substring(13);		
+	var oList=document.getElementById("main").getElementsByTagName("ul")[0];
+
+	var oNew=document.getElementById("new").setAttribute("href","./writeAdvice.html?userId="+c);
+	document.getElementById("myAdvice").href="my_advice_more.html?id="+c+"&page=1";
+	document.getElementById("my_advice_more").href="my_advice_more.html?id="+c+"&page=1";
+	document.getElementById("process").href="process.html?id="+c;
+	document.getElementById("index").href="index.html?COMMITTEEID="+c;
+	var omyPoint=document.getElementsByClassName('myPoint');
+	ajax('get','/db_union/adviceController/findAdviceByCommitteeID.do','COMMITTEEID='+c+'&COUNT=0',function(data){
+	  var data =JSON.parse(data);
+	  console.log(data)
+	  data.length=data.length>8?9:data.length
+	  console.log(data.length)
+		 for(var i=0;i<data.length-1;i++){
+			var date = new Date(data[i].adviceTime);
+	 		var type=data[i].adviceState;
+			if(type==0){
+				oList.innerHTML+="<li><span class=\"dots\">·</span><a href='./advice.html?id="+data[i].adviceId+"&userId="+c+"'>"+data[i].title+"</a><span>"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>";
+			}else if(type==2){
+				oList.innerHTML+="<li><span class=\"dots\">·</span><a href='./goodAdvice.html?id="+data[i].adviceId+"&userId="+c+"'>"+data[i].title+"</a><span>"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>";	
+			}else if(type==1){
+				oList.innerHTML+="<li><span class=\"dots\">·</span><a href='./shenAdvice.html?id="+data[i].adviceId+"&userId="+c+"'>"+data[i].title+"</a><span>"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>";	
+			}else{
+				oList.innerHTML+="<li><span class=\"dots\">·</span><a href='./my_advice.html?id="+data[i].adviceId+"&userId="+c+"'>"+data[i].title+"</a><span>"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</span></li>";
+			}
+		 }
+		 	//a.title
+	})	
+}
+</script>
+</html>

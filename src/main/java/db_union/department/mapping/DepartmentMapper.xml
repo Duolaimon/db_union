@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="db_union.department.dao.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="db_union.department.model.Department" >
+    <id column="department_id" property="departmentId" jdbcType="VARCHAR" />
+    <result column="department_password" property="departmentPassword" jdbcType="VARCHAR" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    department_id, department_password, department_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_department
+    where department_id = #{departmentId,jdbcType=VARCHAR}
+  </select>
+  <select id="countAllDepartment" resultType="java.lang.Integer">
+  	select count(*) from tb_department
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="db_union.utils.Page" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_department
+    limit #{beginIndex,jdbcType=INTEGER},#{everyPage,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_department
+    where department_id = #{departmentId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="db_union.department.model.Department" >
+    insert into tb_department (department_id, department_password, 
+      department_name)
+    values (#{departmentId,jdbcType=VARCHAR}, #{departmentPassword,jdbcType=VARCHAR}, 
+      #{departmentName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="db_union.department.model.Department" >
+    insert into tb_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="departmentPassword != null" >
+        department_password,
+      </if>
+      <if test="departmentName != null" >
+        department_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentPassword != null" >
+        #{departmentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="db_union.department.model.Department" >
+    update tb_department
+    <set >
+      <if test="departmentPassword != null" >
+        department_password = #{departmentPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where department_id = #{departmentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="db_union.department.model.Department" >
+    update tb_department
+    set department_password = #{departmentPassword,jdbcType=VARCHAR},
+      department_name = #{departmentName,jdbcType=VARCHAR}
+    where department_id = #{departmentId,jdbcType=VARCHAR}
+  </update>
+</mapper>

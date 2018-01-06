@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>提案详情</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+	<style type="text/css">
+	
+    label{
+        display: inline-block;
+        width: 30%;
+        font-size: 16px;
+        line-height: 26px;
+        margin-bottom: 10px;
+    }
+
+    input{
+        height: 26px;
+        font-size: 14px;
+        padding-left: 6px;
+        border: none;
+        outline: none;
+    }
+    table{width: 1000px;border-right: solid 1px #ccc;font-size:14px;}
+    table caption{
+        border:solid 1px #ccc;
+        height: 50px;
+        line-height: 50px;
+        font-size: 18px;
+        color: #000;
+    }
+    table td{
+        border-left:solid 1px #ccc;
+        border-bottom:solid 1px #ccc;
+        width:200px;
+    }
+    table tr{
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+    }
+    #main .rever h2{
+        height:40px;
+        line-height:40px;
+    }
+    #main .rever p{
+        font-size:15px;
+        text-indent:2em;
+    }
+    .load{
+        display: inline-block;
+        border: solid 1px #ccc;
+        width: 100px;
+        height: 40px;
+        font-size: 18px;
+        color: #fff;
+        background: #3266cc;
+        text-align: center;
+        line-height: 40px;
+        margin-top: 20px;
+        margin-left: 898px;
+    }
+    .load:hover{
+        color: #fff;
+    }
+	</style>
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+</head> 
+<body>
+	<div class="header"></div>
+    <div class="navbar">
+        <ul class="navlist">
+            <li><a href="./index.html" id="index">首页</a></li>
+            <li><a href="./goodAdvice_more.html?page=1" id="good">提案列表</a></li>
+            <li><a href="./advice_more.html?page=1" id="fuyi">待附议提案</a></li>
+            <li><a href="./liucheng.html" id="liucheng">提案流程</a></li>
+            <li><a href="./tianxuzhi_more.html?page=1" id="xuzhi">提案须知</a></li>
+            <li style="margin-right:0;"><a href="./statistics.html" id="static">提案统计</a></li>
+        </ul>
+    </div>
+	<div class="contain">
+		<div id="main"></div>
+	</div>
+    <div class="footer">
+        <div class="footer_con">
+            <img class="img" src="image/9D953F7497390E8724306BD9841_84EDB1FF_BB07C.png" height="69" width="69"> 
+            <p>     
+                版权所有:黑龙江大学 黑ICP备14005517号-5<br> 查号台:0451-86608114 传真：+86 0451-86661259<br>通信地址：中国·黑龙江省哈尔滨市南岗区学府路74号 邮编：150080</td> 
+            </p>
+        </div>
+    </div>
+	<script>
+	var pid=window.location.search.split("&")[0].substring(4);
+
+    var id="";
+    if(window.location.search.split("&")[1]){
+        id=window.location.search.split("&")[1].substring(7);
+    }else{
+        id="";
+    };
+
+    document.getElementById("good").href="goodAdvice_more.html?id="+id+"&page=1";
+    document.getElementById("fuyi").href="advice_more.html?id="+id+"&page=1";
+    document.getElementById("xuzhi").href="tianxuzhi_more.html?id="+id+"&page=1";
+    document.getElementById("static").href="statistics.html?id="+id;
+    document.getElementById("liucheng").href="liucheng.html?id="+id;
+
+     if(id.length===5){
+        document.getElementById("index").href="index.html?COMMITTEEID="+id;
+    }else if(id.length===1){
+        document.getElementById("index").href="index.html?DEPATMENTID="+id;
+    }else{
+        document.getElementById("index").href="index.html"
+    }
+	ajax("get","/db_union/adviceController/showAdviceWithReplyByID2.do?ADVICEID="+pid,"",function(data){
+		var data=JSON.parse(data);
+		console.log(data)
+		var oMain=document.getElementById("main");
+		var date = new Date(data.adviceTime);
+		oMain.innerHTML="<table cellspacing=\"0\" cellpadding=\"0\"><caption>"+data.adviceTitle+"</caption>"+
+        "<tbody><label>提案编号："+data.adviceNum+"</label><tr><td>案名</td><td colspan=\"5\">"+data.title+"</td></tr>"+
+        "<tr><td>提案人姓名</td><td>"+data.adviceName+"</td><td>所在单位</td><td>"+data.adviceWorkspace+"</td><td>联系方式</td><td>"+data.contactway+"</td></tr><tr><td>附议人姓名</td><td colspan=\"5\" >"+data.adviceAgree+"</td></tr>"+
+        "<tr style=\"height:100px;\"><td>提案内容</td><td colspan=\"5\">"+data.adviceContent+"</td></tr><tr style=\"height:100px;\"><td>建议措施</td><td colspan=\"5\">"+data.adviceDo+"</td></tr>"+ 
+        "<tr><td>提案上报时间</td><td colspan=\"5\">"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</td></tr><tr><td>提案处理部门</td><td colspan='5'>"+data.departmentName+"</td></tr><tr style=\"height:100px;\"><td>部门回复处理意见</td><td colspan=\"5\" >"+data.reply[data.reply.length-1].replyContent+"</td></tr><tr style=\"height:100px;\"><td>领导回复处理意见</td><td colspan=\"5\" >"+data.reply[data.reply.length-1].leaderReply+"</td></tr></tbody></table>";
+        
+	});
+	</script>
+</body>
+</html>

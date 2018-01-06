@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db_union.event.dao.EventMapper">
+  <resultMap id="BaseResultMap" type="db_union.event.model.Event">
+    <id column="event_id" jdbcType="INTEGER" property="eventId" />
+    <result column="event_title" jdbcType="VARCHAR" property="eventTitle" />
+    <result column="event_content" jdbcType="VARCHAR" property="eventContent" />
+    <result column="event_time" jdbcType="TIMESTAMP" property="eventTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    event_id, event_title, event_content, event_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_event
+    where event_id = #{eventId,jdbcType=INTEGER}
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT COUNT(*) from tb_event
+  </select>
+  <select id="findEventByPage" resultMap="BaseResultMap" parameterType="db_union.utils.Page" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_event
+    order by event_time desc
+    limit #{beginIndex,jdbcType=INTEGER},#{everyPage,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_event
+    where event_id = #{eventId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="db_union.event.model.Event">
+    insert into tb_event (event_id, event_title, event_content, 
+      event_time)
+    values (#{eventId,jdbcType=INTEGER}, #{eventTitle,jdbcType=VARCHAR}, #{eventContent,jdbcType=VARCHAR}, 
+      #{eventTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="db_union.event.model.Event">
+    insert into tb_event
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eventId != null">
+        event_id,
+      </if>
+      <if test="eventTitle != null">
+        event_title,
+      </if>
+      <if test="eventContent != null">
+        event_content,
+      </if>
+      <if test="eventTime != null">
+        event_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eventId != null">
+        #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="eventTitle != null">
+        #{eventTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="eventContent != null">
+        #{eventContent,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="db_union.event.model.Event">
+    update tb_event
+    <set>
+      <if test="eventTitle != null">
+        event_title = #{eventTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="eventContent != null">
+        event_content = #{eventContent,jdbcType=VARCHAR},
+      </if>
+      <if test="eventTime != null">
+        event_time = #{eventTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where event_id = #{eventId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="db_union.event.model.Event">
+    update tb_event
+    set event_title = #{eventTitle,jdbcType=VARCHAR},
+      event_content = #{eventContent,jdbcType=VARCHAR},
+      event_time = #{eventTime,jdbcType=TIMESTAMP}
+    where event_id = #{eventId,jdbcType=INTEGER}
+  </update>
+</mapper>

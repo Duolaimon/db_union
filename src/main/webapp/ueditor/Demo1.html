@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>新建通知公告</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" charset="utf-8" src="ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="lang/zh-cn/zh-cn.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/ajax.js"></script>
+    <style type="text/css">
+        div{
+            width:100%;
+        }
+        h1 input{
+            width: 800px;
+            height: 30px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>请输入标题<input type="text" placeholder="请输入标题" id="title"></h1>
+    <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
+    </div>
+    <div id="btns">
+        <div>
+        <button id="submit">提交</button>
+        <script type="text/javascript">
+            var ue = UE.getEditor('editor');
+    var title=document.getElementById("title")
+    var submit=document.getElementById("submit")
+    submit.onclick=function(){
+        ajax('post','/db_union/newsController/insert.do?newsTitle='+title.value+'&newsContent='+UE.getEditor('editor').getPlainTxt(),'',function(){
+            alert("成功")
+        })
+    }
+
+    </script>
+</body>
+</html>

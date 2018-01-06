@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>转意见建议</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/demo.css">
+    <link rel="stylesheet" type="text/css" href="css/list.css">
+    <script type="text/javascript" src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+</head> 
+<body>
+	<div class="header"></div>
+	<div class="navbar">
+		<ul class="navlist">
+			<li><a href="index.html" id="index">首页</a></li>
+			<li><a href="newAdvice.html?page=1" id="newAdvice">最新提案</a></li>
+			<li><a href="zhuanAdvice_more.html?page=1" id="zhuanAdvice">转意见建议</a></li>	
+		</ul>
+	</div>
+	<div class="contain">
+		<div id="main">
+			<div class="position">当前位置：主页 >> 部门中心 >> 转意见建议</div>
+			<div class="newsList">
+				<ul id="oul" >
+				</ul>
+				<div class="page">
+					<p>共<span id="total">111</span>条&nbsp;&nbsp;&nbsp;&nbsp;<em id="nowPage">1</em>/<em id="totalPage">11</em>&nbsp;&nbsp;&nbsp;<span id="first" class="pages">首页</span><span id="prev" class="pages">上一页</span><span id="next" class="pages">下一页</span><span id="last" class="pages">尾页</span></p>
+				</div>
+			</div>
+		</div>
+	</div>
+    <div class="footer">
+        <div class="footer_con">
+            <img class="img" src="image/9D953F7497390E8724306BD9841_84EDB1FF_BB07C.png" height="69" width="69"> 
+            <p>     
+                版权所有:黑龙江大学 黑ICP备14005517号-5<br> 查号台:0451-86608114 传真：+86 0451-86661259<br>通信地址：中国·黑龙江省哈尔滨市南岗区学府路74号 邮编：150080</td> 
+            </p>
+        </div>
+    </div>
+	<script>
+	
+	window.onload=function(){
+		var oFirst=document.getElementById('first');
+		var oLast=document.getElementById('last');
+
+		var oTotal=document.getElementById('total');
+		var oNowPage=document.getElementById('nowPage');
+		var oTotalPage=document.getElementById('totalPage');
+		var oPrev=document.getElementById('prev');
+		var oNext=document.getElementById('next');
+		// var oLi=document.getElementsByClassName('oli');
+		var oUl=document.getElementById('oul');
+		var t=window.location.search.split("&");
+		var id=t[0].substring(4)
+		console.log(t)
+		var TotalPage=null;
+
+		document.getElementById("newAdvice").href="newAdvice.html?id="+id+"&page=1";
+		document.getElementById("zhuanAdvice").href="zhuanAdvice_more.html?id="+id+"&page=1";
+		document.getElementById("index").href="index.html?DEPATMENTID="+id;
+		var c=1;
+		oNext.onclick=function(){
+			++c;
+			oUl.innerHTML='';
+			ajax('get','/db_union/plus/state6ByDmid.do?count='+c+'&dmid='+id+'','',function(data){
+				var d=JSON.parse(data);
+				console.log(d)
+				oTotal.innerHTML=d[d.length-1].totalCount;
+				oNowPage.innerHTML=d[d.length-1].currentPage;
+				oTotalPage.innerHTML=d[d.length-1].totalPage;
+				if(d[d.length-1].hasPrePage){
+						oPrev.style.display='inline';
+					}else{
+						oPrev.style.display='none';
+					}
+					if(d[d.length-1].hasNextPage){
+						oNext.style.display='inline';
+					}else{
+						oNext.style.display='none';
+					} 
+					console.log(d[1].title);
+				for(var i=0;i<d.length-1;i++){
+                    var date = new Date(d[i].adviceTime);
+					oUl.innerHTML+='<li ><span class=\"dots\">·</span><a href="zhuanAdvice.html?id='+d[i].adviceId+'&department='+id+'">'+d[i].title+'</a><span>'+[date.getFullYear(), date.getMonth()+1, date.getDate()].join("/")+'</span></li>';
+			}
+			});	
+		};
+		oPrev.onclick=function(){
+			oUl.innerHTML='';
+			c=c-1;
+			
+			ajax('get','/db_union/plus/state6ByDmid.do?count='+c+'&dmid='+id+'','',function(data){
+				var d=JSON.parse(data);
+				oTotal.innerHTML=d[d.length-1].totalCount;
+				oNowPage.innerHTML=d[d.length-1].currentPage;
+				oTotalPage.innerHTML=d[d.length-1].totalPage;
+
+				if(d[d.length-1].hasPrePage){
+						oPrev.style.display='inline';
+					}else{
+						oPrev.style.display='none';
+					}
+					if(d[d.length-1].hasNextPage){
+						oNext.style.display='inline';
+					}else{
+						oNext.style.display='none';
+					} 
+					console.log(d[1].title);
+				for(var i=0;i<d.length-1;i++){
+                    var date = new Date(d[i].adviceTime);
+                    oUl.innerHTML+='<li ><span class=\"dots\">·</span><a href="zhuanAdvice.html?id='+d[i].adviceId+'&department='+id+'">'+d[i].title+'</a><span>'+[date.getFullYear(), date.getMonth()+1, date.getDate()].join("/")+'</span></li>';
+			}
+				
+			});	
+		};
+
+
+		ajax('get','/db_union/plus/state6ByDmid.do?count='+c+'&dmid='+id+'','',function(data){
+			oUl.innerHTML='';
+			var d=JSON.parse(data);
+			console.log(d)
+			oTotal.innerHTML=d[d.length-1].totalCount;
+			oNowPage.innerHTML=d[d.length-1].currentPage;
+			oTotalPage.innerHTML=d[d.length-1].totalPage;
+			TotalPage=d[d.length-1].totalPage;
+			if(d[d.length-1].hasPrePage){
+					oPrev.style.display='inline';
+				}else{
+					oPrev.style.display='none';
+				}
+				if(d[d.length-1].hasNextPage){
+					oNext.style.display='inline';
+				}else{
+					oNext.style.display='none';
+				} 
+				
+			for(var i=0;i<d.length-1;i++){
+                var date = new Date(d[i].adviceTime);
+                oUl.innerHTML+='<li ><span class=\"dots\">·</span><a href="./zhuanAdvice.html?id='+d[i].adviceId+'&department='+id+'">'+d[i].title+'</a><span>'+[date.getFullYear(), date.getMonth()+1, date.getDate()].join("/")+'</span></li>';
+			}
+		
+		});	
+
+		oFirst.onclick=function(){
+			oUl.innerHTML='';
+			c=1;
+			ajax('get','/db_union/plus/state6ByDmid.do?count='+c+'&dmid='+id+'','',function(data){
+				var d=JSON.parse(data);
+			oTotal.innerHTML=d[d.length-1].totalCount;
+			oNowPage.innerHTML=d[d.length-1].currentPage;
+			oTotalPage.innerHTML=d[d.length-1].totalPage;
+			if(d[d.length-1].hasPrePage){
+					oPrev.style.display='inline';
+				}else{
+					oPrev.style.display='none';
+				}
+				if(d[d.length-1].hasNextPage){
+					oNext.style.display='inline';
+				}else{
+					oNext.style.display='none';
+				} 
+				console.log(d[1].title);
+			for(var i=0;i<d.length-1;i++){
+                var date = new Date(d[i].adviceTime);
+                oUl.innerHTML+='<li ><span class=\"dots\">·</span><a href="zhuanAdvice.html?id='+d[i].adviceId+'&department='+id+'">'+d[i].title+'</a><span>'+[date.getFullYear(), date.getMonth()+1, date.getDate()].join("/")+'</span></li>';
+			}
+			});
+		}
+		oLast.onclick=function(){
+			oUl.innerHTML='';
+			c=TotalPage;
+			ajax('get','/db_union/plus/state6ByDmid.do?count='+c+'&dmid='+id+'','',function(data){
+				var d=JSON.parse(data);
+			oTotal.innerHTML=d[d.length-1].totalCount;
+			oNowPage.innerHTML=d[d.length-1].currentPage;
+			oTotalPage.innerHTML=d[d.length-1].totalPage;
+			if(d[d.length-1].hasPrePage){
+					oPrev.style.display='inline';
+				}else{
+					oPrev.style.display='none';
+				}
+				if(d[d.length-1].hasNextPage){
+					oNext.style.display='inline';
+				}else{
+					oNext.style.display='none';
+				} 
+				console.log(d[1].title);
+			for(var i=0;i<d.length-1;i++){
+                var date = new Date(d[i].adviceTime);
+                oUl.innerHTML+='<li ><span class=\"dots\">·</span><a href="zhuanAdvice.html?id='+d[i].adviceId+'&department='+id+'">'+d[i].title+'</a><span>'+[date.getFullYear(), date.getMonth()+1, date.getDate()].join("/")+'</span></li>';
+			}
+			});
+		}
+
+		}	</script>
+</body>
+</html>

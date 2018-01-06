@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db_union.question.dao.QuestionMapper">
+  <resultMap id="BaseResultMap" type="db_union.question.model.Question">
+    <id column="question_id" jdbcType="INTEGER" property="questionId" />
+    <result column="question_name" jdbcType="VARCHAR" property="questionName" />
+    <result column="question_content" jdbcType="VARCHAR" property="questionContent" />
+    <result column="question_time" jdbcType="TIMESTAMP" property="questionTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    question_id, question_name, question_content, question_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_question
+    where question_id = #{questionId,jdbcType=INTEGER}
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT COUNT(*) from tb_question
+  </select>
+  <select id="findQuestionByPage" resultMap="BaseResultMap" parameterType="db_union.utils.Page" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_question
+    order by question_time desc
+    limit #{beginIndex,jdbcType=INTEGER},#{everyPage,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_question
+    where question_id = #{questionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="db_union.question.model.Question">
+    insert into tb_question (question_id, question_name, question_content, 
+      question_time)
+    values (#{questionId,jdbcType=INTEGER}, #{questionName,jdbcType=VARCHAR}, #{questionContent,jdbcType=VARCHAR}, 
+      #{questionTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="db_union.question.model.Question">
+    insert into tb_question
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="questionId != null">
+        question_id,
+      </if>
+      <if test="questionName != null">
+        question_name,
+      </if>
+      <if test="questionContent != null">
+        question_content,
+      </if>
+      <if test="questionTime != null">
+        question_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="questionId != null">
+        #{questionId,jdbcType=INTEGER},
+      </if>
+      <if test="questionName != null">
+        #{questionName,jdbcType=VARCHAR},
+      </if>
+      <if test="questionContent != null">
+        #{questionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="questionTime != null">
+        #{questionTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="db_union.question.model.Question">
+    update tb_question
+    <set>
+      <if test="questionName != null">
+        question_name = #{questionName,jdbcType=VARCHAR},
+      </if>
+      <if test="questionContent != null">
+        question_content = #{questionContent,jdbcType=VARCHAR},
+      </if>
+      <if test="questionTime != null">
+        question_time = #{questionTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where question_id = #{questionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="db_union.question.model.Question">
+    update tb_question
+    set question_name = #{questionName,jdbcType=VARCHAR},
+      question_content = #{questionContent,jdbcType=VARCHAR},
+      question_time = #{questionTime,jdbcType=TIMESTAMP}
+    where question_id = #{questionId,jdbcType=INTEGER}
+  </update>
+</mapper>

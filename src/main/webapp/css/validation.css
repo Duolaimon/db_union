@@ -1,0 +1,140 @@
+input.required, textarea.required {
+    border: 1px solid #00a8e6;
+}
+
+select.validation-failed, input.validation-failed, textarea.validation-failed {
+    background: #fff url( ../images/default/grid/invalid_line.gif ) repeat-x scroll center bottom;
+    border: 1px solid #dd7870;
+    color: #ff3300;
+}
+
+* html select.validation-failed {
+    background-color: #e8cdb9;
+}
+
+select.validation-passed, input.validation-passed, textarea.validation-passed {
+    border: 1px solid #00cc00;
+    color: #000;
+}
+
+.validation-advice {
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
+    color: #ff3300;
+    font-weight: bold;
+    display: inline;
+}
+
+.custom-advice1 {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #dff3fb;
+    color: #ff3300;
+    font-weight: bold;
+}
+
+.custom-advice2 {
+    margin: 5px 0;
+    padding: 5px;
+    background-color: #ff3300;
+    color: #fff;
+    font-weight: bold;
+}
+
+.tooltip {
+    opacity: .8;
+    -moz-opacity: .8;
+    filter: alpha( opacity = 80 );
+    position: absolute !important;
+    overflow: hidden;
+    font-size: 12px;
+    z-index: 10000 !important;
+}
+
+.tooltip .xtop, .tooltip .xbottom {
+    display: block;
+    background: transparent;
+    font-size: 1px;
+}
+
+.tooltip .xb1, .tooltip .xb2, .tooltip .xb3, .tooltip .xb4 {
+    display: block;
+    overflow: hidden;
+}
+
+.tooltip .xb1, .tooltip .xb2, .tooltip .xb3 {
+    height: 1px;
+}
+
+.tooltip .xb2, .tooltip .xb3, .tooltip .xb4 {
+    background: #666;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+}
+
+.tooltip .xbottom .xb2, .tooltip .xbottom .xb3, .tooltip .xbottom .xb4 {
+    background: #666;
+}
+
+.tooltip .xb1 {
+    margin: 0 5px;
+    background: #333;
+}
+
+.tooltip .xb2 {
+    margin: 0 3px;
+    border-width: 0 2px;
+}
+
+.tooltip .xb3 {
+    margin: 0 2px;
+}
+
+.tooltip .xb4 {
+    height: 2px;
+    margin: 0 1px;
+}
+
+.tooltip .xboxcontent {
+    padding: 0 0.5em;
+    margin: 0;
+    color: #000;
+    text-shadow: 2px 2px 0 #ccc;
+    word-wrap: break-word;
+    border: 1px solid #333;
+    border-width: 0 1px 0 1px;
+    background-color: #666;
+}
+
+.mask-loading {
+    border:1px solid #98b1c8;
+    padding: 5px 10px 5px 25px;
+    background: #ffffe1 url( '../images/loading.gif' ) no-repeat 5px 5px;
+    line-height: 16px;
+    position: absolute;
+    z-index: 20001;
+    -moz-opacity: .9;
+    opacity: .90;
+    filter: alpha( opacity = 90 );
+}
+
+.el-mask {
+    z-index: 20000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -moz-opacity: .4;
+    opacity: .40;
+    filter: alpha( opacity = 40 );
+    background-color: #666;
+    zoom: 1;
+}
+
+.err-msg{
+    padding: 2px 20px 1px;
+    _padding-top:4px;
+    background: url( ../images/sError.gif ) no-repeat 2px 0;
+    color:red;
+    height:18px;
+}

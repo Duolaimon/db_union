@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db_union.rule.dao.RuleMapper">
+  <resultMap id="BaseResultMap" type="db_union.rule.model.Rule">
+    <id column="rule_id" jdbcType="INTEGER" property="ruleId" />
+    <result column="rule_name" jdbcType="VARCHAR" property="ruleName" />
+    <result column="rule_content" jdbcType="VARCHAR" property="ruleContent" />
+    <result column="rule_time" jdbcType="TIMESTAMP" property="ruleTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rule_id, rule_name, rule_content, rule_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_rule
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </select>
+  <select id="countAll" resultType="java.lang.Integer">
+    SELECT COUNT(*) from tb_rule
+  </select>
+  <select id="findRuleByPage" resultMap="BaseResultMap" parameterType="db_union.utils.Page" >
+    select
+    <include refid="Base_Column_List" />
+    from tb_rule
+    order by rule_time desc
+    limit #{beginIndex,jdbcType=INTEGER},#{everyPage,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_rule
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="db_union.rule.model.Rule">
+    insert into tb_rule (rule_id, rule_name, rule_content, 
+      rule_time)
+    values (#{ruleId,jdbcType=INTEGER}, #{ruleName,jdbcType=VARCHAR}, #{ruleContent,jdbcType=VARCHAR}, 
+      #{ruleTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="db_union.rule.model.Rule">
+    insert into tb_rule
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ruleId != null">
+        rule_id,
+      </if>
+      <if test="ruleName != null">
+        rule_name,
+      </if>
+      <if test="ruleContent != null">
+        rule_content,
+      </if>
+      <if test="ruleTime != null">
+        rule_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ruleId != null">
+        #{ruleId,jdbcType=INTEGER},
+      </if>
+      <if test="ruleName != null">
+        #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleContent != null">
+        #{ruleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleTime != null">
+        #{ruleTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="db_union.rule.model.Rule">
+    update tb_rule
+    <set>
+      <if test="ruleName != null">
+        rule_name = #{ruleName,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleContent != null">
+        rule_content = #{ruleContent,jdbcType=VARCHAR},
+      </if>
+      <if test="ruleTime != null">
+        rule_time = #{ruleTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="db_union.rule.model.Rule">
+    update tb_rule
+    set rule_name = #{ruleName,jdbcType=VARCHAR},
+      rule_content = #{ruleContent,jdbcType=VARCHAR},
+      rule_time = #{ruleTime,jdbcType=TIMESTAMP}
+    where rule_id = #{ruleId,jdbcType=INTEGER}
+  </update>
+</mapper>

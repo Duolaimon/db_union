@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>部门回复</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/partment.css">
+	<link rel="stylesheet" type="text/css" href="css/demo.css">
+	<script src="js/ajax.js"></script>
+    <script type="text/javascript" src="js/json2.js"></script>
+	<style>
+    label{
+        display: inline-block;
+        width: 30%;
+        font-size: 16px;
+        line-height: 26px;
+        margin-bottom: 10px;
+    }
+
+    input{
+        height: 26px;
+        font-size: 14px;
+        padding-left: 6px;
+        border: none;
+        outline: none;
+    }
+    table{width: 1000px;border-right: solid 1px #ccc;font-size:14px;}
+    table caption{
+        border:solid 1px #ccc;
+        height: 50px;
+        line-height: 50px;
+        font-size: 18px;
+        color: #000;
+    }
+    table td textarea{
+        *width: 830px;
+        *overflow: hidden;
+    }
+    table td{
+        border-left:solid 1px #ccc;
+        border-bottom:solid 1px #ccc;
+        width:200px;
+    }
+    table tr{
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+    }
+	
+	</style>
+	 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+<body>
+	
+	<div class="header">
+		
+	</div>
+	<div class="navbar">
+		<ul class="navlist">
+			<li><a href="#" id="index">首页</a></li>
+			<li><a href="" id="newAdvice">最新提案</a></li>	
+			<li><a href="" id="zhuanAdvice">转意见建议</a></li>	
+		</ul>
+	</div>
+<div class="contain">
+		<div id="main"></div>
+		</div>
+	<div class="footer">
+		<div class="footer_con">
+			<img class="img" src="/db_union/image/9D953F7497390E8724306BD9841_84EDB1FF_BB07C.png" height="69" width="69">	
+			<p>		
+				版权所有:黑龙江大学 黑ICP备14005517号-5<br> 查号台:0451-86608114 传真：+86 0451-86661259<br>通信地址：中国·黑龙江省哈尔滨市南岗区学府路74号 邮编：150080
+			</p>
+		</div>
+	</div>
+</body>
+<script>
+	window.onload=function(){
+		
+		var d =window.location.search.split("&");
+        var c =d[0].substring(4);
+        var k =d[1].substring(11)
+        console.log(k)
+		console.log(d)
+
+		document.getElementById("newAdvice").href="newAdvice.html?id="+k+"&page=1";
+		document.getElementById("zhuanAdvice").href="zhuanAdvice_more.html?id="+k+"&page=1";
+		document.getElementById("index").href="index.html?DEPATMENTID="+k;
+        
+        ajax('get','/db_union/adviceController/showAdvice.do','ADVICE_ID='+c ,function(data){
+            var data=JSON.parse(data);
+			console.log(data)
+			var oMain=document.getElementById("main");
+			var date = new Date(data.adviceTime);
+			oMain.innerHTML="<table cellspacing=\"0\" cellpadding=\"0\"><caption>"+data.adviceTitle+"</caption>"+
+			"<tbody><label>提案编号："+data.adviceNum+"</label><tr><td>案名</td><td colspan=\"5\">"+data.title+"</td></tr>"+
+			"<tr><td>提案人姓名</td><td>"+data.adviceName+"</td><td>所在单位</td><td>"+data.adviceWorkspace+"</td><td>联系方式</td><td>"+data.contactway+"</td></tr><tr><td>附议人姓名</td><td colspan=\"5\" id=\"person\">"+data.adviceAgree+"</td></tr>"+
+	        "<tr style=\"height:100px;\"><td>提案内容</td><td colspan=\"5\">"+data.adviceContent+"</td></tr><tr style=\"height:100px;\"><td>建议措施</td><td colspan=\"5\">"+data.adviceDo+"</td></tr>"+ 
+	        "<tr><td>提案上报时间</td><td colspan=\"5\">"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</td></tr><tr style=\"height:100px;\"><td>部门回复处理意见</td><td colspan=\"5\"><textarea id=\"textarea\" style=\"width: 99%;height: 85px;border: none;outline: none;\"></textarea></td></tr><tr style=\"height:100px;\"><td>领导回复处理意见</td><td colspan=\"5\"><textarea id=\"textarea1\" style=\"width: 99%;height: 85px;border: none;outline: none;\"></textarea></td></tr></tbody></table></br><input style=\"width:100px;height:40px;margin-left:900px;\" type=\"button\" value=\"提交回复\" id=\"btn\" />";
+	        var oBtn=document.getElementById("btn")
+	        var oTextarea=document.getElementById("textarea")
+	        var oTextarea1=document.getElementById("textarea1")
+	        oBtn.onclick=function(){
+				// ajax('post','/db_union/replyController/insertReply.do?adviceId='+c+'&replyContent='+oTextarea.value+'&replyState=0&leaderReply='+oTextarea1.value,'',function(data){
+				 //    var d =JSON.parse(data);
+				 //    if(d){
+	    //                 alert('回复成功');
+				 //        self.location='./newAdvice.html?id='+k+'&page=1';
+					// }else{
+	    //                 alert('回复失败');
+					// }
+				// })
+				$.ajax({
+					url: '/db_union/replyController/insertReply.do',
+					type: 'POST',
+					dataType: '',
+					data: {adviceId: c, replyContent:oTextarea.value, replyState:0, leaderReply:oTextarea1.value},
+					contentType: "application/x-www-form-urlencoded; charset=utf-8",
+					success:function(data){
+							var d =JSON.parse(data);
+						    if(d){
+			                    alert('回复成功');
+						        self.location='./newAdvice.html?id='+k+'&page=1';
+							}else{
+			                    alert('回复失败');
+							}
+					},
+					error:function(data){
+						console.log(data);
+					}
+					
+				});
+				
+			}
+        });
+
+       /* 
+		*/
+
+	}
+</script>
+</html>
