@@ -16,6 +16,7 @@
 	<div class="header"></div>
 	<div class="contain">
 		<div id="main">
+			<a href="./login.html">返回登录页面</a>
 			<div class="position">当前位置：主页 >> 提案管理员 >> 待审提案</div>
 			<div class="newsList">
 				<ul></ul>
@@ -40,7 +41,7 @@
 	var manageid=window.location.search.split("&")[0].substring(10);
 	console.log(window.location.search.split("&"))
 
-	ajax("get","/db_union/plus/selectAllState.do?stateid=7&count="+count,"",function(data){
+	ajax("get","/db_union/plus/getAllState.do?stateid=7&count="+count,"",function(data){
 		var data=JSON.parse(data);
 		console.log(data)
 		document.getElementById("total").innerHTML=data[data.length-1].totalCount;
@@ -61,27 +62,27 @@
 	var oNext=document.getElementById("next");
 	
 	oLast.onclick=function(){
-		ajax("get","/db_union/plus/selectAllState.do?stateid=7&count="+parseInt(totalPage),"",function(data){		
+		ajax("get","/db_union/plus/getAllState.do?stateid=7&count="+parseInt(totalPage),"",function(data){		
 			getData(data);
 			self.location="./shen_advice_more.html?id="+manageid+"&page="+parseInt(totalPage);
 		});
 	}		
 	oNext.onclick=function(){
 		if(page<totalPage){
-			ajax("get","/db_union/plus/selectAllState.do?stateid=7&count="+(parseInt(page)+1),"",function(data){		
+			ajax("get","/db_union/plus/getAllState.do?stateid=7&count="+(parseInt(page)+1),"",function(data){		
 				getData(data);
 				self.location="./shen_advice_more.html?id="+manageid+"&page="+parseInt(page);
 			});
 		}
 	}	
 	oFirst.onclick=function(){	
-		ajax("get","/db_union/plus/selectAllState.do?stateid=7&count=1","",function(data){		
+		ajax("get","/db_union/plus/getAllState.do?stateid=7&count=1","",function(data){		
 			getData(data);
 			self.location="./shen_advice_more.html?id="+manageid+"&page=1";
 		});
 	}
 	oPrev.onclick=function(){
-		ajax("get","/db_union/plus/selectAllState.do?stateid=7&count=="+(parseInt(page)-1),"",function(data){			
+		ajax("get","/db_union/plus/getAllState.do?stateid=7&count=="+(parseInt(page)-1),"",function(data){			
 			getData(data);
 			self.location="./shen_advice_more.html?id="+manageid+"&page="+parseInt(page);
 		});

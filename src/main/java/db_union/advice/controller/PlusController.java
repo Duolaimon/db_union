@@ -44,6 +44,7 @@ public class PlusController {
             advice.setDepartmentId(dmid);
             advice.setAdviceNum(adnum);
             Integer count = adviceservice.updateByPrimaryKeySelective(advice);
+
             if(count>0){
                 return 1;
             }else{
@@ -95,7 +96,7 @@ public class PlusController {
      * @param count
      * @return
      */
-    @RequestMapping(value = "/selectAllState",method = RequestMethod.GET)
+    @RequestMapping(value = "/getAllState",method = RequestMethod.GET)
     public List selectAllState(Integer stateid, Integer count){
         System.out.println(stateid+"---"+count);
         Page page = PageUtil.createPage(10,adviceservice.countAllState(stateid),count);

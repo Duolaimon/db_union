@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="war" name="db_union:war">
-    <output-path>$PROJECT_DIR$/war</output-path>
+    <output-path>$PROJECT_DIR$/target</output-path>
     <root id="archive" name="db_union.war">
       <element id="artifact" artifact-name="db_union:war exploded" />
     </root>

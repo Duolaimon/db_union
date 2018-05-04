@@ -39,7 +39,7 @@
 	var count=window.location.search.split("&")[1].substring(5);
 	var id=window.location.search.split("&")[0].substring(13);
 	console.log(window.location.search.split("&"))
-	ajax('get','/db_union/adviceController/findAdviceByDepartmentID.do','DEPRTMENTID='+id+'&COUNT='+count,function(data){
+	ajax('get','/db_union/leader/adviceForLeader.do','leaderId='+id+'&COUNT='+count,function(data){
 		var data=JSON.parse(data);
 		console.log(data)
 		document.getElementById("total").innerHTML=data[data.length-1].totalCount;
@@ -60,27 +60,27 @@
 	var oNext=document.getElementById("next");
 	
 	oLast.onclick=function(){
-		ajax("get",'/db_union/adviceController/findAdviceByDepartmentID.do','DEPRTMENTID='+id+'&COUNT='+parseInt(totalPage),function(data){		
+		ajax("get",'/db_union/leader/adviceForLeader.do','leaderId='+id+'&COUNT='+parseInt(totalPage),function(data){
 			getData(data);
 			self.location="/db_union/lingdaoshen_more.html?DEPRTMENTID="+id+"&page="+parseInt(totalPage);
 		});
 	}		
 	oNext.onclick=function(){
 		if(page<totalPage){
-			ajax("get",'/db_union/adviceController/findAdviceByDepartmentID.do','DEPRTMENTID='+id+'&COUNT='+(parseInt(page)+1),function(data){		
+			ajax("get",'/db_union/leader/adviceForLeader.do','leaderId='+id+'&COUNT='+(parseInt(page)+1),function(data){
 				getData(data);
 				self.location="/db_union/lingdaoshen_more.html?DEPRTMENTID="+id+"&page="+parseInt(page);
 			});
 		}
 	}	
 	oFirst.onclick=function(){	
-		ajax("get",'/db_union/adviceController/findAdviceByDepartmentID.do','DEPRTMENTID='+id+'&COUNT=1',function(data){		
+		ajax("get",'/db_union/leader/adviceForLeader.do','leaderId='+id+'&COUNT=1',function(data){
 			getData(data);
 			self.location="/db_union/lingdaoshen_more.html?DEPRTMENTID="+id+"&page=1";
 		});
 	}
 	oPrev.onclick=function(){
-		ajax("get",'/db_union/adviceController/findAdviceByDepartmentID.do','DEPRTMENTID='+id+'&COUNT='+(parseInt(page)-1),function(data){			
+		ajax("get",'/db_union/leader/adviceForLeader.do','leaderId='+id+'&COUNT='+(parseInt(page)-1),function(data){
 			getData(data);
 			self.location="/db_union/lingdaoshen_more.html?DEPRTMENTID="+id+"&page="+parseInt(page);
 		});

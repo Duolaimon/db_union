@@ -30,4 +30,12 @@ public class Leader {
     public void setLeaderName(String leaderName) {
         this.leaderName = leaderName == null ? null : leaderName.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Leader{" +
+                "leaderId=" + leaderId +
+                ", leaderName='" + leaderName + '\'' +
+                '}';
+    }
 }

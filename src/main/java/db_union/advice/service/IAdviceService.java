@@ -3,11 +3,16 @@ package db_union.advice.service;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db_union.advice.model.Advice;
 import db_union.utils.Page;
 
 public interface IAdviceService {
+
+	List<Advice> getAdvicesByLeader(Map map);
+
+	boolean insertAdviceLeader(Integer adviceId, Integer leaderId);
 
 	public boolean insertAdvice(Advice advice);
 
@@ -52,6 +57,8 @@ public interface IAdviceService {
 	int countAllAdviceByDEPARTMENTID(String DEAPRTMENTID);
 	
 	int countAllAdviceByCOMMITTEEID(String COMMITTEEID);
+
+	int countAllAdviceByLeaderId(Integer leaderId);
 
 	int countState6ByDmid(String dmid);
 	

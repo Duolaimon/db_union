@@ -6,6 +6,8 @@ import db_union.leader.service.ILeaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by cirno
  * on 2017/6/18.
@@ -23,5 +25,12 @@ public class LeaderServiceImpl implements ILeaderService {
     @Override
     public Leader findLeaderById(Integer id) {
         return leaderMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<Leader> findLeaderNameList() {
+        List result = leaderMapper.selectAllLeaderName();
+        System.out.println(result);
+        return result;
     }
 }

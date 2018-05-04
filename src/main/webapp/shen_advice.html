@@ -85,25 +85,39 @@
 		"<tr><td>提案人姓名</td><td>"+data.adviceName+"</td><td>所在单位</td><td>"+data.adviceWorkspace+"</td><td>联系方式</td><td>"+data.contactway+"</td></tr><tr><td>附议人姓名</td><td colspan=\"5\">"+data.adviceAgree+"</td></tr>"+
         "<tr style=\"height:100px;\"><td>提案内容</td><td colspan=\"5\">"+data.adviceContent+"</td></tr><tr style=\"height:100px;\"><td>建议措施</td><td colspan=\"5\">"+data.adviceDo+"</td></tr>"+ 
         "<tr><td>提案上报时间</td><td colspan=\"5\">"+[date.getFullYear(), date.getMonth()+1, date.getDate()].join('/')+"</td></tr></tbody></table>"+
-        "<p class=\"select\"></p><form style='margin-top:20px;'><label>是否立案：<select id=\"stateId\"><option value=\"4\">立案</option><option value=\"5\">不立案</option><option value=\"0\">转为意见或建议</option></select></label>&nbsp;&nbsp;&nbsp;&nbsp;<label>选择部门：<select id='departId'><option value=\"请选择\"> 请选择</option><option value=\"11001\">学校办公室</option><option value=\"11002\">组织部</option><option value=\"11003\">宣传部、统战部</option><option value=\"11004\">纪委办公室、监察处</option><option value=\"11005\">学工部、学生处</option><option value=\"11006\">团委</option><option value=\"11007\">工会</option><option value=\"11010\">离退休工作处</option><option value=\"11012\">教务处</option><option value=\"11013\">人事处</option><option value=\"11014\">财务处</option><option value=\"11015\">审计处</option><option value=\"11016\">国有资产管理处</option><option value=\"11017\">重点建设与发展工作处</option><option value=\"11019\">科学技术处</option><option value=\"11020\">社会科学处</option><option value=\"11021\">招生就业处</option><option value=\"11022\">研究生学院</option><option value=\"11023\">安全保障部</option><option value=\"11024\">后勤管理处</option><option value=\"11027\">校区管理处</option><option value=\"11028\">实验室建设与设备管理处</option><option value=\"15002\">图书馆</option><option value=\"15003\">信息与网络中心</option><option value=\"15008\">教育教学评估中心</option><option value=\"15009\">现代教育技术中心</option><option value=\"16001\">黑龙江大学出版社有限责任公司</option><option value=\"16002\">黑龙江黑大资产经营有限公司</option><option value=\"16003\">实业总公司</option><option value=\"16012\">教育杂志社</option><option value=\"12032\">继续教育学院</option><option value=\"12001\">哲学学院</option><option value=\"12002\">经济与工商管理学院</option><option value=\"12003\">法学院</option><option value=\"12004\">教育科学研究院</option><option value=\"12005\">文学院</option><option value=\"12006\">新闻传播学院</option><option value=\"12007\">西语学院</option><option value=\"12008\">俄语学院</option><option value=\"12009\">东语学院</option><option value=\"12010\">历史文化旅游学院</option><option value=\"12011\">数学科学学院</option><option value=\"12012\">物理科学与技术学院</option><option value=\"12013\">化学化工与材料学院</option><option value=\"12014\">生命科学学院</option><option value=\"12015\">机电工程学院</option><option value=\"12016\">电子工程学院</option><option value=\"12017\">计算机科学技术学院（软件学院）</option><option value=\"12018\">数据科学与技术学院</option><option value=\"12019\">建筑工程学院</option><option value=\"12020\">水利电力学院</option><option value=\"12021\">农业资源与环境学院</option><option value=\"12022\">信息管理学院</option><option value=\"12023\">政府管理学院</option><option value=\"12024\">艺术学院</option><option value=\"12025\">应用外语学院（外语教学研究部）</option><option value=\"12026\">马克思主义学院</option><option value=\"12027\">体育教学研究部</option><option value=\"12028\">国际文化教育学院（国际合作与交流处）</option><option value=\"12029\">国防教育学院、武装部</option><option value=\"12030\">中俄学院</option><option value=\"12031\">创业教育学院</option><option value=\"13002\">俄罗斯研究中心</option><option value=\"13003\">满语研究所</option><option value=\"13005\">农作物研究院</option></select>&nbsp;&nbsp;&nbsp;&nbsp;</label></br><input type=\"button\" id=\"submitBtn\" value=\"提交\"></form>";
+        "<p class=\"select\"></p><form style='margin-top:20px;' id='forms'><label>是否立案：<select id=\"stateId\"><option value=\"4\">立案</option><option value=\"5\">不立案</option><option value=\"0\">转为意见或建议</option></select></label>&nbsp;&nbsp;&nbsp;&nbsp;<label>选择部门：<select id='departId'><option value=\"请选择\"> 请选择</option><option value=\"11001\">学校办公室</option><option value=\"11002\">组织部</option><option value=\"11003\">宣传部、统战部</option><option value=\"11004\">纪委办公室、监察处</option><option value=\"11005\">学工部、学生处</option><option value=\"11006\">团委</option><option value=\"11007\">工会</option><option value=\"11010\">离退休工作处</option><option value=\"11012\">教务处</option><option value=\"11013\">人事处</option><option value=\"11014\">财务处</option><option value=\"11015\">审计处</option><option value=\"11016\">国有资产管理处</option><option value=\"11017\">重点建设与发展工作处</option><option value=\"11019\">科学技术处</option><option value=\"11020\">社会科学处</option><option value=\"11021\">招生就业处</option><option value=\"11022\">研究生学院</option><option value=\"11023\">安全保障部</option><option value=\"11024\">后勤管理处</option><option value=\"11027\">校区管理处</option><option value=\"11028\">实验室建设与设备管理处</option><option value=\"15002\">图书馆</option><option value=\"15003\">信息与网络中心</option><option value=\"15008\">教育教学评估中心</option><option value=\"15009\">现代教育技术中心</option><option value=\"16001\">黑龙江大学出版社有限责任公司</option><option value=\"16002\">黑龙江黑大资产经营有限公司</option><option value=\"16003\">实业总公司</option><option value=\"16012\">教育杂志社</option><option value=\"12032\">继续教育学院</option><option value=\"12001\">哲学学院</option><option value=\"12002\">经济与工商管理学院</option><option value=\"12003\">法学院</option><option value=\"12004\">教育科学研究院</option><option value=\"12005\">文学院</option><option value=\"12006\">新闻传播学院</option><option value=\"12007\">西语学院</option><option value=\"12008\">俄语学院</option><option value=\"12009\">东语学院</option><option value=\"12010\">历史文化旅游学院</option><option value=\"12011\">数学科学学院</option><option value=\"12012\">物理科学与技术学院</option><option value=\"12013\">化学化工与材料学院</option><option value=\"12014\">生命科学学院</option><option value=\"12015\">机电工程学院</option><option value=\"12016\">电子工程学院</option><option value=\"12017\">计算机科学技术学院（软件学院）</option><option value=\"12018\">数据科学与技术学院</option><option value=\"12019\">建筑工程学院</option><option value=\"12020\">水利电力学院</option><option value=\"12021\">农业资源与环境学院</option><option value=\"12022\">信息管理学院</option><option value=\"12023\">政府管理学院</option><option value=\"12024\">艺术学院</option><option value=\"12025\">应用外语学院（外语教学研究部）</option><option value=\"12026\">马克思主义学院</option><option value=\"12027\">体育教学研究部</option><option value=\"12028\">国际文化教育学院（国际合作与交流处）</option><option value=\"12029\">国防教育学院、武装部</option><option value=\"12030\">中俄学院</option><option value=\"12031\">创业教育学院</option><option value=\"13002\">俄罗斯研究中心</option><option value=\"13003\">满语研究所</option><option value=\"13005\">农作物研究院</option></select>&nbsp;&nbsp;&nbsp;&nbsp;</label><label>发给领导：<select id=\"leader\"><option>请选择</option></select></label>&nbsp;&nbsp;&nbsp;&nbsp;</br><input type=\"button\" id=\"submitBtn\" value=\"提交\"></form>";
 
 		var oSubmitBtn=document.getElementById("submitBtn");
-		oSubmitBtn.onclick=function(){
+        ajax("get","/db_union/leader/leaderList.do","",function(data){
+            var leader=document.getElementById('leader');
+            var data=JSON.parse(data);
+            for (var i = 0; i < data.length; i++) {
+                leader.innerHTML+="<option value="+data[i].leaderId+">"+data[i].leaderName+"</option>"
+            }
+
+
+        });//获取领导信息并插入
+
+        oSubmitBtn.onclick=function(){
 			var num=document.getElementById("num").value;
 			var stateId=document.getElementById("stateId").value;
 			var departId=document.getElementById("departId").value;
+			var leaderId=document.getElementById("leader").value;
             if(stateId==0){
+                /*转为意见或建议*/
                 ajax('post','/db_union/plus/setNewCount.do?id='+id+'&dmid='+departId+'&adnum='+num,'',function(data){
                     self.location="./shen_advice_more.html?manageid="+man+"&page="+page;
                 })
             }else{
-                ajax("get","/db_union/adviceController/updataAdviceSH.do?adviceid="+id+"&num="+num+"&stateid="+stateId+"&departid="+departId,"",function(data){
+                ajax("get","/db_union/adviceController/updataAdviceSH.do?adviceid="+id+"&num="+num+"&stateid="+stateId+"&departid="+departId+"&leaderId="+leaderId,"",function(data){
                     alert("提交成功！");
                     self.location="./shen_advice_more.html?manageid="+man+"&page="+page;
                 })
             }
 		}
+
 	});
+
 	</script>
 </body>
 </html>

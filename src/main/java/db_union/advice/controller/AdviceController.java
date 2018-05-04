@@ -234,6 +234,7 @@ public class AdviceController {
 		return list;
 	}
 
+	// TODO:url 包含select 无法访问
 	@RequestMapping("/selectAdviceLike")
 	public @ResponseBody
 	List<Object> selectAdviceLike(String poi, Integer count) {
@@ -259,12 +260,15 @@ public class AdviceController {
 
 	@RequestMapping("/updataAdviceSH")
 	public @ResponseBody
-	Integer updataAdviceNum(Integer adviceid, String num, Integer stateid, String departid) {
+	Integer updataAdviceNum(Integer adviceid, String num, Integer stateid, String departid, @RequestParam(required = false,defaultValue = "-1") Integer leaderId) {
 		Advice advice = adviceservice.findAdviceByID(adviceid);
 		advice.setAdviceNum(num);
 		advice.setAdviceState(stateid);
 		advice.setDepartmentId(departid);
 		int count = adviceservice.updateByPrimaryKeySelective(advice);
+		if (leaderId != -1) {
+			adviceservice.insertAdviceLeader(adviceid, leaderId);
+		}
 		return count;
 	}
 

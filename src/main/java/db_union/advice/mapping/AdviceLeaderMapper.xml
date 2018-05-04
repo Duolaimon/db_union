@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="db_union.advice.dao.AdviceLeaderMapper">
+    <resultMap id="BaseResultMap" type="db_union.advice.model.Advice">
+        <id column="advice_id" jdbcType="INTEGER" property="adviceId" />
+        <result column="advice_num" jdbcType="VARCHAR" property="adviceNum" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="advice_content" jdbcType="VARCHAR" property="adviceContent" />
+        <result column="advice_do" jdbcType="VARCHAR" property="adviceDo" />
+        <result column="advice_state" jdbcType="INTEGER" property="adviceState" />
+        <result column="count" jdbcType="INTEGER" property="count" />
+        <result column="advice_agree" jdbcType="VARCHAR" property="adviceAgree" />
+        <result column="advice_name" jdbcType="VARCHAR" property="adviceName" />
+        <result column="advice_workspace" jdbcType="VARCHAR" property="adviceWorkspace" />
+        <result column="advice_time" jdbcType="TIMESTAMP" property="adviceTime" />
+        <result column="contactway" jdbcType="VARCHAR" property="contactway" />
+        <result column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="department_id" jdbcType="VARCHAR" property="departmentId" />
+        <result column="advice_title" jdbcType="VARCHAR" property="adviceTitle" />
+    </resultMap>
+    <insert id="insertAdviceLeader">
+        insert advice_leader values (#{adviceId},#{leaderId})
+    </insert>
+
+    <select id="selectAdviceByLeaderId" resultMap="BaseResultMap">
+        select tb_advice.*
+        from tb_advice
+        where advice_id in (select advice_leader.advice_id
+                           from advice_leader
+                           where leader_id = #{leaderId})
+        limit #{begin},#{every};
+    </select>
+</mapper>

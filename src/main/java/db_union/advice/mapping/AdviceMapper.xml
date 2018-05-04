@@ -141,6 +141,9 @@
     select* from tb_advice where advice_state=-1
     limit #{beginIndex},#{everyPage}
   </select>
+  <select id="countAllAdviceByLeaderId" resultType="java.lang.Integer">
+    select count(*) from advice_leader where leader_id=#{leaderId};
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tb_advice
     where advice_id = #{adviceId,jdbcType=INTEGER}

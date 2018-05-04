@@ -70,4 +70,6 @@ public interface AdviceMapper {
     List<Object> select6ByDmid(HashMap<String, Object> map);
 
     List<Object> selectAllState(HashMap<String,Object> map);
+
+    int countAllAdviceByLeaderId(Integer leaderId);
 }
