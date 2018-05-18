@@ -5,10 +5,7 @@ import db_union.rule.service.IRuleService;
 import db_union.utils.Page;
 import db_union.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,17 +26,21 @@ public class RuleController {
         this.iRuleService = iRuleService;
     }
 
+    @GetMapping("/")
+    public String noPage() {
+        return "404";
+    }
     @RequestMapping(value = "insert",method = RequestMethod.POST)
     public Integer insertRule(Rule rule){
         return iRuleService.insertRule(rule);
     }
 
-    @RequestMapping("/showRuleByID")
+    @GetMapping("/showRuleByID")
     public Rule findRuleBuId(Integer id){
         return iRuleService.findRuleById(id);
     }
 
-    @RequestMapping("/showRuleByPage")
+    @GetMapping("/showRuleByPage")
     public List findRuleByPage(Integer count){
         Page page = PageUtil.createPage(10,iRuleService.countAll(),count);
         List list = iRuleService.findRuleByPage(page);

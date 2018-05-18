@@ -26,6 +26,11 @@ public class PlusController {
         this.adviceservice = adviceservice;
     }
 
+    @GetMapping("/")
+    public String noPage() {
+        return "404";
+    }
+
     /**
      * 设置转为提案的部门
      * @param id

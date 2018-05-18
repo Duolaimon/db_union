@@ -5,10 +5,7 @@ import db_union.advice.service.IAdviceService;
 import db_union.reply.model.Reply;
 import db_union.reply.service.IReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
@@ -28,7 +25,10 @@ public class ReplyController {
 	public void setAdviceservice(IAdviceService adviceservice) {
 		this.adviceservice = adviceservice;
 	}
-
+	@GetMapping("/")
+	public String noPage() {
+		return "404";
+	}
 	@RequestMapping(value = "/insertReply",method = RequestMethod.POST)
 	public Integer insertReply(Reply reply){
 		System.out.println(reply.getAdviceId());

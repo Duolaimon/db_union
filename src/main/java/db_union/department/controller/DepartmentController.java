@@ -6,6 +6,7 @@ import db_union.department.service.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 @CrossOrigin
@@ -20,7 +21,12 @@ public class DepartmentController {
 		this.departmentservice = departmentservice;
 	}
 
-	@RequestMapping("/name")
+	@GetMapping("/")
+	public String noPage() {
+		return "404";
+	}
+
+	@GetMapping("/name")
 	public @ResponseBody HashMap<String,String> findDepartmentName(String DEPARTMENTNAME){
 		System.out.println(DEPARTMENTNAME);
 		Department department = departmentservice.findDepartmentByID(DEPARTMENTNAME);
@@ -35,7 +41,7 @@ public class DepartmentController {
 		return map;
 	} 
 	
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public @ResponseBody HashMap<String,Integer> login(String DEPATMENTID,String PASSWORD){
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		Department department = departmentservice.findDepartmentByID(DEPATMENTID

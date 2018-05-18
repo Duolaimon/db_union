@@ -5,10 +5,7 @@ import db_union.event.service.IEventService;
 import db_union.utils.Page;
 import db_union.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,17 +26,22 @@ public class EventController {
         this.iEventService = iEventService;
     }
 
+    @GetMapping("/")
+    public String noPage() {
+        return "404";
+    }
+
     @RequestMapping(value = "/insertEvent",method = RequestMethod.POST)
     public Integer insertEvent(Event event){
         return iEventService.insertEvent(event);
     }
 
-    @RequestMapping("/showEvent")
+    @GetMapping("/showEvent")
     public Event showEvent(Integer id){
         return iEventService.findByEventId(id);
     }
 
-    @RequestMapping("/showEventByPage")
+    @GetMapping("/showEventByPage")
     public List showEventByPage(Integer count){
         Page page = PageUtil.createPage(10,iEventService.countAll(),count);
         List list = iEventService.findEventByPage(page);

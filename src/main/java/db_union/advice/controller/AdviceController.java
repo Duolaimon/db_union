@@ -82,6 +82,12 @@ public class AdviceController {
 		this.committeeservice = committeeservice;
 	}
 
+	@GetMapping("/")
+	public String noPage() {
+		return "404";
+	}
+
+
 	@RequestMapping(value = "/insertAdvice", method = RequestMethod.POST)
 	public @ResponseBody
 	HashMap<String, Integer> insertAdvice(Advice advice) {
@@ -98,25 +104,25 @@ public class AdviceController {
 		return map;
 	}
 
-	@RequestMapping("/countAll")
+	@GetMapping("/countAll")
 	public @ResponseBody
 	Integer countAllAdvice() {
 		return adviceservice.countAllAdvice();
 	}
 
-	@RequestMapping("/showProcess")
+	@GetMapping("/showProcess")
 	public @ResponseBody
 	List<Advice> showProcess(String USERID) {
 		return adviceservice.findAdviceByUserID(USERID);
 	}
 
-	@RequestMapping("/showAdvice")
+	@GetMapping("/showAdvice")
 	public @ResponseBody
 	Advice showAdvice(Integer ADVICE_ID) {
 		return adviceservice.findAdviceByID(ADVICE_ID);
 	}
 
-	@RequestMapping("/showPoiProcess")
+	@GetMapping("/showPoiProcess")
 	public @ResponseBody
 	List<Object> showPoiProcess(Integer count) {
 		Page page = PageUtil.createPage(10, adviceservice.countAllPoiAdvice(), count);
@@ -125,7 +131,7 @@ public class AdviceController {
 		return list;
 	}
 
-	@RequestMapping("/showadvicePassByPage")
+	@GetMapping("/showadvicePassByPage")
 	public @ResponseBody
 	List<Object> showAdvicePassByPage(Integer COUNT) {
 		Page page = PageUtil.createPage(10, adviceservice.countAllPassAdvice(), COUNT);
@@ -134,7 +140,7 @@ public class AdviceController {
 		return list;
 	}
 
-	@RequestMapping("/showAdviceWithReplyByID")
+	@GetMapping("/showAdviceWithReplyByID")
 	public @ResponseBody
 	AdviceWithReply showAdviceWithReplyByID(Integer ADVICEID) {
 		Advice advice = adviceservice.findAdviceByID(ADVICEID);
@@ -147,7 +153,7 @@ public class AdviceController {
 		return advicewithreply;
 	}
 
-	@RequestMapping("/showAdviceWithReplyByID2")
+	@GetMapping("/showAdviceWithReplyByID2")
 	public @ResponseBody
 	Object showAdviceWithReplyByID2(Integer ADVICEID) {
 		Advice advice = adviceservice.findAdviceByID(ADVICEID);
@@ -164,7 +170,7 @@ public class AdviceController {
 		}
 	}
 
-	@RequestMapping("/countUpdate")
+	@GetMapping("/countUpdate")
 	public @ResponseBody
 	Integer countUpdate(Integer ADVICEID, Integer COUNT, String COMMITTEEID) {
 
@@ -185,7 +191,7 @@ public class AdviceController {
 
 	}
 
-	@RequestMapping("/adviceNumUpdate")
+	@GetMapping("/adviceNumUpdate")
 	public @ResponseBody
 	Integer adviceNumUpdate(Integer ADVICEID, String NUM) {
 
@@ -196,7 +202,7 @@ public class AdviceController {
 		return count;
 	}
 
-	@RequestMapping("/adviceDepartUpdate")
+	@GetMapping("/adviceDepartUpdate")
 	public @ResponseBody
 	Integer adviceDepartUpdate(Integer ADVICEID, String DEPRTMENTID) {
 		Advice a = new Advice();
@@ -206,7 +212,7 @@ public class AdviceController {
 		return count;
 	}
 
-	@RequestMapping("/findAdviceByCommitteeID")
+	@GetMapping("/findAdviceByCommitteeID")
 	public @ResponseBody
 	List<Object> findAdviceByCommitteeID(String COMMITTEEID, Integer COUNT) {
 		Page page = PageUtil.createPage(10, adviceservice.countAllAdviceByCOMMITTEEID(COMMITTEEID), COUNT);
@@ -219,7 +225,7 @@ public class AdviceController {
 		return list;
 	}
 
-	@RequestMapping("/findAdviceByDepartmentID")
+	@GetMapping("/findAdviceByDepartmentID")
 	public @ResponseBody
 	List<Object> findAdviceByDepartmentID(String DEPRTMENTID, Integer COUNT) {
 		Page page = PageUtil.createPage(10, adviceservice.countAllAdviceByDEPARTMENTID(DEPRTMENTID), COUNT);
@@ -235,7 +241,7 @@ public class AdviceController {
 	}
 
 	// TODO:url 包含select 无法访问
-	@RequestMapping("/selectAdviceLike")
+	@GetMapping("/selectAdviceLike")
 	public @ResponseBody
 	List<Object> selectAdviceLike(String poi, Integer count) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -249,7 +255,7 @@ public class AdviceController {
 		return list;
 	}
 
-	@RequestMapping("/updataAdviceStates")
+	@GetMapping("/updataAdviceStates")
 	public @ResponseBody
 	Integer updataAdviceStates(Integer adviceid, Integer stateid) {
 		Advice advice = adviceservice.findAdviceByID(adviceid);
@@ -258,7 +264,7 @@ public class AdviceController {
 		return count;
 	}
 
-	@RequestMapping("/updataAdviceSH")
+	@GetMapping("/updataAdviceSH")
 	public @ResponseBody
 	Integer updataAdviceNum(Integer adviceid, String num, Integer stateid, String departid, @RequestParam(required = false,defaultValue = "-1") Integer leaderId) {
 		Advice advice = adviceservice.findAdviceByID(adviceid);
@@ -272,13 +278,13 @@ public class AdviceController {
 		return count;
 	}
 
-	@RequestMapping("/selectAdviceN0N2")
+	@GetMapping("/selectAdviceN0N2")
 	public @ResponseBody
 	Advice selectAdviceN0N2(Integer id) {
 		return adviceservice.selectAdviceN0N2(id);
 	}
 
-	@RequestMapping("/selectCountB2")
+	@GetMapping("/selectCountB2")
 	public @ResponseBody
 	List<Object> selectCountB2(Integer count) {
 		Page page = PageUtil.createPage(10, adviceservice.countAllCountB2(), count);
@@ -287,7 +293,7 @@ public class AdviceController {
 		return list;
 	}
 
-	@RequestMapping("/selectAllPassAdvice")
+	@GetMapping("/selectAllPassAdvice")
 	public List<Object> selectAllPassAdvice(Integer count) {
 		Page page = PageUtil.createPage(10, adviceservice.countAllPassAdvice(), count);
 		List list = adviceservice.selectAllPassAdvice(page);
@@ -295,13 +301,13 @@ public class AdviceController {
 		return list;
 	}
 
-	@RequestMapping("/countAllState")
+	@GetMapping("/countAllState")
 	public @ResponseBody
 	Integer countAllState(Integer stateid) {
 		return adviceservice.countAllState(stateid);
 	}
 
-	@RequestMapping("/findAdviceDSH")
+	@GetMapping("/findAdviceDSH")
 	public @ResponseBody
 	List findAdviceDSH(Integer count) {
 		Page page = PageUtil.createPage(10, adviceservice.countAllState(-1), count);

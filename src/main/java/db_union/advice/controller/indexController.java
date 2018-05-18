@@ -8,6 +8,7 @@ import db_union.news.service.INewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,8 +37,14 @@ public class indexController {
 	public void setAdvicepassservice(IAdvicePassService advicepassservice) {
 		this.advicepassservice = advicepassservice;
 	}
-	
-	@RequestMapping("/showIndex")
+
+	@GetMapping("/")
+	public String noPage() {
+		return "404";
+	}
+
+
+	@GetMapping("/showIndex")
 	public @ResponseBody HashMap<String,Object> showIndex(){
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("advicepass", advicepassservice.findPassAdvice());

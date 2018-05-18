@@ -7,6 +7,7 @@ import db_union.committee.service.ICommitteeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,8 +25,14 @@ public class CommitteeController {
 	public void setCommitteeservice(ICommitteeService committeeservice) {
 		this.committeeservice = committeeservice;
 	}
-	
-	@RequestMapping("/name")
+
+	@GetMapping("/")
+	public String noPage() {
+		return "404";
+	}
+
+
+	@GetMapping("/name")
 	public @ResponseBody HashMap<String,String> findCommitteeName(String COMMITTEE_ID){
 		System.out.println(COMMITTEE_ID);
 		Committee committee = committeeservice.findCommitteeByID(COMMITTEE_ID);
@@ -40,7 +47,7 @@ public class CommitteeController {
 		return map;
 	} 
 	
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public @ResponseBody HashMap<String,Integer> login(String COMMITTEEID,String PASSWORD){
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		Committee committee = committeeservice.findCommitteeByID(COMMITTEEID);

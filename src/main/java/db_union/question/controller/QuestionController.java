@@ -5,10 +5,8 @@ import db_union.question.service.IQuestionService;
 import db_union.utils.Page;
 import db_union.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 /**
@@ -28,17 +26,22 @@ public class QuestionController {
         this.iQuestionService = iQuestionService;
     }
 
+    @GetMapping("/")
+    public String noPage() {
+        return "404";
+    }
+
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     public Integer insert(Question question){
         return iQuestionService.insertQuestion(question);
     }
 
-    @RequestMapping("/findQuestionById")
+    @GetMapping("/findQuestionById")
     public Question findQuestionById(Integer id){
         return iQuestionService.findQuestionById(id);
     }
 
-    @RequestMapping("/findQuestionByPage")
+    @GetMapping("/findQuestionByPage")
     public List findQuestionByPage(Integer count){
         Page page = PageUtil.createPage(10,iQuestionService.countAll(),count);
         List list = iQuestionService.findQuestionByPage(page);

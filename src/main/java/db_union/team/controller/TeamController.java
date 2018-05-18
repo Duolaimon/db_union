@@ -3,10 +3,7 @@ package db_union.team.controller;
 import db_union.team.model.Team;
 import db_union.team.service.ITeamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by cirno
@@ -23,7 +20,10 @@ public class TeamController {
     public void setiTeamService(ITeamService iTeamService) {
         this.iTeamService = iTeamService;
     }
-
+    @GetMapping("/")
+    public String noPage() {
+        return "404";
+    }
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Integer login(Integer id,String password){
         Team team = iTeamService.findTeamById(id);

@@ -31,8 +31,13 @@ public class LeaderController {
         this.leaderService = leaderService;
         this.adviceService = adviceService;
     }
+    @GetMapping("/")
+    public String noPage() {
+        return "404";
+    }
 
-    @RequestMapping("/login")
+
+    @GetMapping("/login")
     public Integer login(Integer id,String password){
         Leader leader = leaderService.findLeaderById(id);
         if(leader == null){

@@ -5,9 +5,8 @@ import db_union.manage.model.Manage;
 import db_union.manage.service.IManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 @CrossOrigin
 @Controller
 @RequestMapping("/manageController")
@@ -20,12 +19,17 @@ public class ManageController {
 		this.manageservice = manageservice;
 	}
 
-	@RequestMapping("/insertManage")
+	@GetMapping("/")
+	public String noPage() {
+		return "404";
+	}
+
+	@PostMapping("/insertManage")
 	public @ResponseBody Integer insert(Manage manage){
 		return manageservice.insert(manage);
 	}
 
-	@RequestMapping("/login")
+	@GetMapping("/login")
 	public @ResponseBody HashMap<String,Integer> login(String manageid,String password){
 		HashMap<String,Integer> info  = new HashMap<String,Integer>();
 		Manage manage = manageservice.findManageByID(manageid);

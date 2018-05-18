@@ -5,10 +5,7 @@ import db_union.organization.service.IOrganizationService;
 import db_union.utils.Page;
 import db_union.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,18 +25,21 @@ public class OrganizationController {
     public void setiOrganizationService(IOrganizationService iOrganizationService) {
         this.iOrganizationService = iOrganizationService;
     }
-
+    @GetMapping("/")
+    public String noPage() {
+        return "404";
+    }
     @RequestMapping(value = "/insert",method = RequestMethod.POST)
     public Integer insertOrganization(Organization organization){
         return iOrganizationService.insertOrganization(organization);
     }
 
-    @RequestMapping("/showOrganization")
+    @GetMapping("/showOrganization")
     public Organization findOrganizationById(Integer id){
         return iOrganizationService.findOrganization(id);
     }
 
-    @RequestMapping("/showOrganizationByPage")
+    @GetMapping("/showOrganizationByPage")
     public List findOrganizationByPage(Integer count){
         Page page = PageUtil.createPage(10,iOrganizationService.countAll(),count);
         List list = iOrganizationService.findOrganizationByPage(page);
